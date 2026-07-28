@@ -1,0 +1,2073 @@
+/* =========================================================
+   CEDILIJ — Hoja de estilos base
+   Paleta basada en las piezas reales de Instagram de CEDILIJ
+   (flyers a color + isotipo del pájaro). Tipografía: Poppins
+   (gratuita) para títulos, Inter para cuerpo. Ver .claude/NO_NEGOCIABLES.md
+   ========================================================= */
+
+/* ---------- Tokens ---------- */
+:root {
+  /* Color — constantes de marca: negro, crema, dorado (logo) */
+  --color-ink: #1a1a1a;
+  --color-ink-soft: #55504a;
+  --color-bg: #f6f1e3;
+  --color-bg-alt: #efe6d3;
+  --color-surface: #fffbf2; /* blanco hueso cálido — nunca #fff puro */
+  --color-border: #e4d9be;
+
+  /* Azul: un solo azul para todo (hero, cta, botones, footer) */
+  --color-primary: #1f4270;
+  --color-primary-dark: #15304f;
+  --color-primary-tint: #e1eaf5;
+
+  /* Rojo: acento / CTA puntual */
+  --color-accent: #d8382c;
+  --color-accent-dark: #a82c22;
+  --color-accent-tint: #f8deda;
+
+  /* Verde: acento de categoría */
+  --color-green: #3b8c68;
+  --color-green-dark: #2c6b4e;
+  --color-green-tint: #dceee4;
+
+  /* Dorado: color del isotipo, acento decorativo */
+  --color-gold: #e8b923;
+  --color-gold-dark: #a9800e;
+  --color-gold-tint: #fbf0d2;
+
+  --color-focus: #1d7a6b;
+
+  /* Tipografía — Poppins para títulos (gratuita, la misma que usa
+     tekmaneducation.com como referencia), Inter para texto de cuerpo. */
+  --font-heading: "Poppins", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+
+  /* Escala espacial */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --space-6: 4rem;
+  --space-7: 6rem;
+
+  /* Otros */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.75rem;
+  --shadow-sm: 0 2px 8px rgba(32, 26, 43, 0.08);
+  --shadow-md: 0 12px 32px rgba(32, 26, 43, 0.14);
+  --color-shadow-card: #c9ab72; /* sombra beige de las tarjetas (antes negra) */
+  --container-w: 72rem;
+  --transition: 200ms ease;
+  --wave-h: clamp(2.5rem, 6vw, 5rem);
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Selección de texto en naranja (marca), no el azul por defecto */
+::selection {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden; /* evita scroll horizontal por los fondos a sangre de Novedades */
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--color-primary);
+}
+
+ul,
+ol {
+  padding-left: 1.25rem;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  color: var(--color-ink);
+  line-height: 1.2;
+  margin: 0 0 var(--space-3);
+}
+
+h1 {
+  font-weight: 800;
+  line-height: 1.15;
+  font-size: clamp(2.1rem, 4vw + 1rem, 3.2rem);
+}
+
+/* Fuente redondeada tipo bloque para h2, a pedido de la usuaria
+   (referencia visual, mejor candidata gratuita: Baloo 2). */
+h2 {
+  font-family: "Baloo 2", var(--font-heading);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: clamp(1.7rem, 2.5vw + 1rem, 2.4rem);
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+p {
+  margin: 0 0 var(--space-3);
+}
+
+/* Respeta la preferencia del usuario de reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Foco visible (accesibilidad) ---------- */
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  /* WCAG 2.4.11: que el header sticky no tape un elemento enfocado */
+  scroll-margin-top: calc(var(--header-h, 5rem) + 1rem);
+}
+
+/* En secciones de fondo oscuro (azul) el teal pierde contraste contra
+   el fondo (¡el teal y el azul tienen casi la misma luminosidad!,
+   ratio ~1.2:1 — muy por debajo del 3:1 que pide WCAG 1.4.11): se
+   fuerza un foco blanco en esas zonas. */
+.cta-band :focus-visible,
+.site-footer :focus-visible,
+.hero :focus-visible {
+  outline-color: #fff;
+}
+
+/* ---------- Skip link ---------- */
+.skip-link {
+  position: absolute;
+  left: var(--space-3);
+  top: -4rem;
+  background: var(--color-primary);
+  color: #fff;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  z-index: 1000;
+  transition: top var(--transition);
+}
+
+.skip-link:focus {
+  top: var(--space-3);
+}
+
+/* ---------- Layout utilitario ---------- */
+.container {
+  width: 100%;
+  max-width: var(--container-w);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+section {
+  padding-block: var(--space-6);
+}
+
+/* La última sección antes del footer necesita respiro extra abajo
+   para que la onda del footer no choque con el contenido. */
+main > section:last-of-type {
+  padding-bottom: calc(var(--space-6) + clamp(2.5rem, 6vw, 5rem));
+}
+
+.section-alt {
+  background: var(--color-bg-alt);
+}
+
+.section-head {
+  max-width: 44rem;
+  margin-bottom: var(--space-5);
+}
+
+.about-figure {
+  display: block;
+  width: 100%;
+  max-width: 28rem;
+  height: auto;
+  margin: 0 0 var(--space-5);
+  border-radius: var(--radius-sm);
+}
+
+/* Etiqueta simple con un guioncito, no la típica píldora de badge */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-heading);
+  color: var(--color-accent-dark);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 1.5em;
+  height: 3px;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: -1px;
+}
+
+/* ---------- Header / navegación ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--color-bg);
+  transition: background var(--transition);
+}
+
+/* Estado "flotando sobre el hero azul" (solo Inicio, ver .hero más
+   abajo): header transparente con texto claro, hasta que el hero
+   deja de estar debajo — ver toggle en main.js. */
+.site-header.hero-transparent {
+  background: transparent;
+}
+
+.site-header.hero-transparent .brand strong,
+.site-header.hero-transparent .brand span,
+.site-header.hero-transparent .nav-menu > a,
+.site-header.hero-transparent .nav-menu .nav-dropdown-link {
+  color: #fff;
+}
+
+.site-header.hero-transparent .brand img {
+  filter: brightness(0) invert(1);
+}
+
+.site-header.hero-transparent .nav-menu a[aria-current="page"] {
+  color: #fff;
+  border-bottom-color: var(--color-gold);
+}
+
+.site-header.hero-transparent .nav-toggle {
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+
+/* Botón "Catálogo": naranja/rojo (mismo color que subraya la sección
+   activa) sobre header crema, dorado (ídem) sobre el header
+   transparente del hero azul. */
+.nav-menu .nav-catalog-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  border-bottom: none;
+  font-weight: 700;
+  background: var(--color-accent);
+  color: #fff;
+  transition: background var(--transition), color var(--transition);
+}
+
+.nav-menu .nav-catalog-btn:hover,
+.nav-menu .nav-catalog-btn:focus-visible {
+  background: var(--color-accent-dark);
+  color: #fff;
+}
+
+.site-header.hero-transparent .nav-menu .nav-catalog-btn {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+.site-header.hero-transparent .nav-menu .nav-catalog-btn:hover,
+.site-header.hero-transparent .nav-menu .nav-catalog-btn:focus-visible {
+  background: var(--color-gold-dark);
+  color: #fff;
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--space-4);
+  padding-block: var(--space-3);
+  gap: var(--space-4);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.brand img {
+  height: 2.75rem;
+  width: auto;
+  transition: filter var(--transition);
+}
+
+.brand strong {
+  display: block;
+  font-size: 1.75rem;
+  line-height: 1.1;
+}
+
+.brand span {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--color-ink-soft);
+}
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.nav-toggle svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.nav-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2) var(--space-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: var(--color-ink);
+  font-weight: 600;
+  padding: var(--space-2) var(--space-1);
+  border-bottom: 3px solid transparent;
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.nav-menu a:hover,
+.nav-menu a:focus-visible {
+  color: var(--color-primary);
+}
+
+.nav-menu a[aria-current="page"] {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-accent);
+}
+
+/* ---------- Submenú de nav ("Quiénes somos") ---------- */
+.nav-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nav-dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-left: -0.25rem;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: color var(--transition), transform var(--transition);
+}
+
+.nav-dropdown-toggle:hover,
+.nav-dropdown-toggle:focus-visible {
+  color: var(--color-primary);
+}
+
+.nav-dropdown:hover .nav-dropdown-toggle,
+.nav-dropdown:focus-within .nav-dropdown-toggle,
+.nav-dropdown-toggle[aria-expanded="true"] {
+  transform: rotate(180deg);
+}
+
+.site-header.hero-transparent .nav-dropdown-toggle {
+  color: #fff;
+}
+
+.nav-submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 13rem;
+  margin: 0;
+  padding: var(--space-2);
+  list-style: none;
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+  z-index: 10;
+}
+
+.nav-dropdown:hover .nav-submenu,
+.nav-dropdown:focus-within .nav-submenu,
+.nav-dropdown-toggle[aria-expanded="true"] + .nav-submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-menu .nav-submenu a {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  border-bottom: none;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.nav-menu .nav-submenu a:hover,
+.nav-menu .nav-submenu a:focus-visible {
+  color: var(--color-primary);
+  background: var(--color-primary-tint);
+}
+
+.nav-menu .nav-submenu a[aria-current="page"] {
+  color: var(--color-primary);
+  background: var(--color-primary-tint);
+}
+
+.nav-dropdown.is-active > .nav-dropdown-link {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-accent);
+}
+
+@media (max-width: 60rem) {
+  .nav-bar {
+    flex-wrap: wrap;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  .nav-menu {
+    display: none;
+    flex: 1 1 100%;
+    flex-direction: column;
+    width: 100%;
+    padding-block: var(--space-3);
+    gap: 0;
+  }
+
+  .nav-menu a {
+    display: block;
+    padding: var(--space-3) var(--space-1);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* Que no quede línea divisoria pegada arriba del botón Catálogo */
+  .nav-menu a:has(+ .nav-catalog-btn) {
+    border-bottom: none;
+  }
+
+  .nav-menu .nav-catalog-btn {
+    margin-top: var(--space-2);
+  }
+
+  .nav-dropdown {
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .nav-menu .nav-dropdown-link {
+    flex: 1;
+    border-bottom: none;
+  }
+
+  .nav-dropdown-toggle {
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+  }
+
+  .nav-submenu {
+    display: none;
+    position: static;
+    flex-basis: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0 0 var(--space-2) var(--space-4);
+    background: transparent;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .nav-dropdown-toggle[aria-expanded="true"] + .nav-submenu {
+    display: block;
+  }
+
+  .nav-menu .nav-submenu a {
+    padding: var(--space-2) var(--space-1);
+  }
+
+  .site-header.nav-open .nav-menu {
+    display: flex;
+  }
+}
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 0.85rem 1.6rem;
+  border-radius: var(--radius-sm);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--color-primary-dark);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn-outline:hover,
+.btn-outline:focus-visible {
+  background: var(--color-primary-tint);
+}
+
+.btn-accent {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.btn-accent:hover,
+.btn-accent:focus-visible {
+  background: var(--color-accent-dark);
+}
+
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  background-color: var(--color-primary);
+  /* hero-bg.jpg = textura + azul ya combinados en un solo archivo,
+     igual que hace tekmaneducation.com (imagen directa, sin blend
+     mode ni máscara CSS). Generado a partir de la textura provista
+     por la usuaria; 23 KB en vez del ~1 MB de los intentos previos. */
+  background-image: url("../img/hero-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  min-height: 68vh;
+  padding-block: calc(var(--space-7) + 2rem) calc(var(--space-7) + 2.5rem);
+  overflow: hidden;
+  margin-bottom: -1px; /* evita una línea de 1px del bg de la página entre el hero y la onda */
+}
+
+.hero > .container {
+  width: 100%;
+}
+
+/* Solo se aplica si el JS pudo medir la altura real del header
+   (ver main.js). Sin JS, el hero queda en el flujo normal, debajo
+   de un header sólido — sigue siendo legible, solo menos vistoso. */
+.hero.hero-overlay {
+  margin-top: calc(-1 * var(--header-h, 0px));
+  padding-top: calc(var(--space-7) + var(--header-h, 0px));
+}
+
+.hero .eyebrow {
+  color: var(--color-gold);
+}
+
+.hero h1 {
+  color: #fff;
+}
+
+.hero p {
+  color: #dce6f6;
+  font-size: 1.1rem;
+}
+
+.hero .btn-primary {
+  background: var(--color-surface);
+  color: var(--color-primary);
+}
+
+.hero .btn-primary:hover,
+.hero .btn-primary:focus-visible {
+  background: var(--color-bg-alt);
+  color: var(--color-primary-dark);
+}
+
+.hero .btn-outline {
+  border-color: #fff;
+  color: #fff;
+}
+
+.hero .btn-outline:hover,
+.hero .btn-outline:focus-visible {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.hero .container {
+  position: relative;
+  max-width: none;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 48%;
+  margin-inline: 0 auto;
+}
+
+.hero-copy h1 {
+  margin-bottom: var(--space-4);
+}
+
+.hero-copy p {
+  margin-bottom: 0;
+}
+
+.hero-copy .hero-actions {
+  justify-content: center;
+  margin-top: var(--space-5);
+  margin-bottom: 1.2rem; /* ~0.5cm extra que pidió la usuaria */
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+/* ---------- Carrusel de fotos (hero) ----------
+   Scroll-snap nativo: funciona sin JS (swipe/scroll manual). El
+   avance automático es JS puro encima; se pausa solo con
+   hover/foco/touch y respeta prefers-reduced-motion. */
+/* Pegada al borde derecho, empieza justo debajo del menú (no detrás
+   — la barra queda azul sólida, sin la foto asomando) y se estira
+   más abajo del límite normal del hero: la onda (y el
+   overflow:hidden del .hero) la recortan por abajo, como en tekman —
+   no queda como una foto completa "flotando". */
+.hero-carousel {
+  position: absolute;
+  top: var(--header-h, 5rem);
+  right: 0;
+  bottom: -4rem;
+  width: 48%;
+  overflow: hidden;
+}
+
+@media (max-width: 55rem) {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    /* El carrusel pasa a ir primero (order:-1, más abajo) y ocupa
+       todo el ancho; el padding superior pensado para centrar el
+       texto en desktop solo dejaría un hueco azul vacío antes. */
+    padding-block: 0 calc(var(--space-7) + 2.5rem);
+  }
+
+  /* Con JS, .hero-overlay (ver main.js) pisa el padding-top de
+     arriba por especificidad (.hero.hero-overlay > .hero). En
+     desktop ese padding extra separa el texto del header; en mobile
+     el primer elemento ya es el carrusel (order:-1), así que alcanza
+     con lo justo para no quedar tapado por el header. */
+  .hero.hero-overlay {
+    padding-top: var(--header-h, 5rem);
+  }
+
+  .hero-copy {
+    width: 100%;
+    max-width: none;
+    margin-inline: auto;
+  }
+
+  .hero-carousel {
+    position: static;
+    order: -1;
+    width: 100%;
+    /* Ojo: 4/5 coincidía exacto con el ratio de carrusel1.jpg y no
+       recortaba nada (se veía "entera"); un ratio más ancho que alto
+       fuerza un recorte real en cualquiera de las fotos del carrusel. */
+    aspect-ratio: 4 / 3;
+    margin-bottom: var(--space-4);
+  }
+}
+
+.hero-carousel-track {
+  display: flex;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.hero-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.hero-carousel-slide {
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: start;
+}
+
+.hero-carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* La foto de la biblioteca tiene lo más lindo (estantes, mesa) hacia
+   abajo; sin esto el recorte automático la centra y deja de más el
+   techo/las vigas de arriba. */
+.hero-carousel-slide img[src$="carrusel4.jpg"] {
+  object-position: center bottom;
+}
+
+.hero-wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  line-height: 0;
+  color: var(--color-bg);
+}
+
+.hero-wave svg {
+  display: block;
+  width: 100%;
+  height: clamp(2.5rem, 6vw, 5rem);
+}
+
+
+/* ---------- Stats ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--space-4);
+}
+
+.stat {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  text-align: center;
+}
+
+.stat strong {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: var(--color-accent-dark);
+}
+
+.stat span {
+  color: var(--color-ink-soft);
+  font-size: 0.95rem;
+}
+
+/* ---------- Cards ----------
+   Tratamiento tipo "tarjeta pineada en un corcho": fondo sólido de
+   color rotativo por categoría, sombra dura con offset beige (no
+   blur suave de SaaS), rotación leve alternada que se endereza al
+   pasar el mouse. El texto usa currentColor para que cada variante
+   (clara u oscura) mantenga contraste correcto. */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--space-5) var(--space-4);
+}
+
+/* Variante de dos columnas fijas (no auto-fit), para secciones donde
+   se prefiere el ancho de tarjeta más generoso de un grid de 2 en vez
+   de que se angosten al sumar más tarjetas por fila. */
+.card-grid--pair {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 40rem) {
+  .card-grid--pair {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.card {
+  position: relative;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 0.4rem;
+  padding: var(--space-4);
+  box-shadow: 5px 5px 0 var(--color-shadow-card);
+  rotate: -0.5deg;
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition), rotate var(--transition), background var(--transition);
+}
+
+.card-grid > .card:nth-child(3n + 2) {
+  background: var(--color-accent-dark);
+  rotate: 0.6deg;
+}
+
+.card-grid > .card:nth-child(3n + 3) {
+  background: var(--color-gold);
+  color: var(--color-ink);
+  rotate: 0.4deg;
+}
+
+.card:hover,
+.card:focus-within {
+  rotate: 0deg;
+  transform: translateY(-3px);
+  box-shadow: 8px 8px 0 var(--color-shadow-card);
+}
+
+/* Foco visible: blanco sobre los fondos oscuros, tinta oscura sobre
+   el dorado (claro) — mismo criterio WCAG 1.4.11 que hero/footer. */
+.card :focus-visible {
+  outline-color: #fff;
+}
+
+.card-grid > .card:nth-child(3n + 3) :focus-visible {
+  outline-color: var(--color-ink);
+}
+
+/* Excepción puntual: tarjeta de Biblioteca en Inicio, en dorado (como
+   el botón de Catálogo) en vez del verde que le tocaría por posición. */
+.card-grid > .card.card--gold {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+.card-grid > .card.card--gold :focus-visible {
+  outline-color: var(--color-ink);
+}
+
+.card-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-3);
+  color: inherit;
+}
+
+.card h3,
+.card p,
+.card a {
+  color: inherit;
+}
+
+.card h3 {
+  margin-bottom: var(--space-2);
+}
+
+.card p:last-child {
+  margin-bottom: 0;
+}
+
+.service-card-meta {
+  margin: 0 0 var(--space-1);
+  font-size: 0.9rem;
+}
+
+.service-card-meta:last-of-type {
+  margin-bottom: var(--space-3);
+}
+
+/* ---------- Novedades ---------- */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: var(--space-5) var(--space-4);
+}
+
+.news-card {
+  background: var(--color-bg);
+  border-radius: 0.4rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 5px 0 var(--color-shadow-card);
+  rotate: -0.5deg;
+  transition: transform var(--transition), box-shadow var(--transition), rotate var(--transition);
+}
+
+.news-grid > .news-card:nth-child(4n + 2) {
+  rotate: 0.6deg;
+}
+
+.news-grid > .news-card:nth-child(4n + 3) {
+  rotate: -0.3deg;
+}
+
+.news-grid > .news-card:nth-child(4n + 4) {
+  rotate: 0.4deg;
+}
+
+.news-card:hover,
+.news-card:focus-within {
+  rotate: 0deg;
+  transform: translateY(-3px);
+  box-shadow: 8px 8px 0 var(--color-shadow-card);
+}
+
+/* Imagen de la novedad: siempre recortada a un tamaño prolijo
+   (aspect-ratio fijo + object-fit:cover). En la página de Novedades
+   además es cliqueable/enfocable y abre la foto completa (ver
+   .post-image-link y el lightbox más abajo). */
+.news-card-media {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--color-bg-alt);
+}
+
+.news-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition);
+}
+
+.post-list .news-card-media {
+  aspect-ratio: 16 / 9;
+  border-radius: 0;
+}
+
+.news-card-body {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.news-date {
+  font-weight: 600;
+  color: var(--color-accent-dark);
+  font-size: 0.9rem;
+}
+
+.news-card-link {
+  font-weight: 600;
+}
+
+/* Mismo lenguaje que .eyebrow (guioncito de color + texto, sin
+   badge/píldora con fondo tintado — ese patrón quedaba muy genérico). */
+.news-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  align-self: flex-start;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+}
+
+.news-tag::before {
+  content: "";
+  width: 1em;
+  height: 3px;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+/* Variantes de color según el tipo de novedad (columna "tipo" del
+   Google Sheet: Noticia o Actividad). */
+.news-tag--noticia {
+  color: var(--color-primary-dark);
+}
+
+.news-tag--actividad {
+  color: var(--color-green-dark);
+}
+
+.news-card h2,
+.news-card h3 {
+  margin-bottom: 0;
+}
+
+/* ---------- Novedades: listado tipo blog (página Novedades) ----------
+   Un post entero por fila (no una tarjeta): foto recortada arriba,
+   cuerpo de texto completo abajo. El fondo de cada post llega hasta
+   el borde de la ventana (sangrado, ver --novedades-edge-gap más
+   abajo), pasando por debajo de la barra lateral, que se dibuja
+   encima porque va después en el HTML. El texto/imagen adentro sí
+   quedan en una columna angosta (.news-card-inner) para que se lean
+   cómodos. */
+:root {
+  --novedades-sidebar-w: 18rem;
+  /* Distancia del borde de la ventana hasta donde .container empieza
+     a mostrar contenido (su margen de centrado + su padding). Se usa
+     para que el fondo llegue al borde real de la pantalla mientras el
+     texto adentro se mantiene alineado con el resto de la página. */
+  --novedades-edge-gap: max(0px, calc((100vw - var(--container-w)) / 2));
+}
+
+.novedades-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: var(--space-5);
+}
+
+@media (min-width: 64rem) {
+  .novedades-layout {
+    grid-template-columns: minmax(0, 1fr) var(--novedades-sidebar-w);
+    column-gap: var(--space-6);
+    align-items: start;
+  }
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+/* Columna lateral: invita a seguir a CEDILIJ por redes/WhatsApp para
+   enterarse de novedades sin depender de visitar esta página, y debajo
+   un índice para saltar por año. En mobile queda debajo del listado
+   (ver orden en el HTML). */
+.novedades-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+@media (min-width: 64rem) {
+  .novedades-sidebar {
+    position: sticky;
+    top: calc(var(--header-h, 5rem) + var(--space-4));
+    z-index: 1;
+  }
+}
+
+.novedades-follow {
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.novedades-filter {
+  padding-inline: var(--space-2);
+}
+
+.novedades-filter h2 {
+  font-size: 1rem;
+}
+
+.novedades-filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.novedades-filter-btn {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-primary);
+  background: transparent;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.novedades-filter-btn:hover,
+.novedades-filter-btn:focus-visible {
+  background: var(--color-primary-tint);
+}
+
+.novedades-filter-btn.is-active {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.novedades-years {
+  padding-inline: var(--space-2);
+}
+
+.novedades-years h2 {
+  font-size: 1rem;
+}
+
+.novedades-years ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.novedades-years a {
+  font-weight: 600;
+}
+
+.novedades-follow h2 {
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+.novedades-follow p {
+  color: var(--color-bg);
+  font-size: 0.95rem;
+}
+
+.novedades-follow-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.novedades-follow-list a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background var(--transition);
+}
+
+.novedades-follow-list a:hover,
+.novedades-follow-list a:focus-visible {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.novedades-follow-list svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  flex-shrink: 0;
+}
+
+/* Ítem sin link todavía (falta el dato real, ver comentario HTML) */
+.novedades-follow-pending {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+}
+
+.novedades-follow-pending em {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+
+.novedades-follow :focus-visible {
+  outline-color: #fff;
+}
+
+.post-list .news-card {
+  rotate: 0deg;
+  box-shadow: none;
+  border-radius: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* El atributo hidden (usado por el filtro de tipo) necesita pisar el
+   display:flex de arriba para funcionar. */
+.post-list .news-card[hidden] {
+  display: none;
+}
+
+/* Fondo alternado entre posteos (mismos dos tonos que alternan las
+   secciones de Inicio) para diferenciar uno del otro sin usar tarjeta. */
+.post-list .news-card:nth-child(odd) {
+  background: var(--color-bg);
+}
+
+.post-list .news-card:nth-child(even) {
+  background: var(--color-bg-alt);
+}
+
+.post-list .news-card:hover,
+.post-list .news-card:focus-within {
+  transform: none;
+  box-shadow: none;
+}
+
+.news-card-inner {
+  width: 100%;
+  max-width: 38rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4);
+}
+
+.post-list .news-card-body {
+  padding: 0;
+}
+
+/* Divisor de año: item directo de .novedades-layout (no de .post-list)
+   para que ocupe su propia fila arriba de todo — así la barra lateral
+   empieza alineada con el primer posteo (donde arranca el color), no
+   con el año. También es el destino de los links de "Navegá por año"
+   de la barra lateral. */
+.post-year-marker {
+  grid-column: 1 / -1;
+  font-family: "Baloo 2", var(--font-heading);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--color-primary);
+  margin: 0;
+  padding-inline: var(--space-4);
+  scroll-margin-top: calc(var(--header-h, 5rem) + var(--space-4));
+}
+
+/* El fondo llega hasta el borde de la ventana (no solo hasta el borde
+   de .container) en cualquier ancho, no solo en desktop: técnica
+   clásica de "sangrado" para escapar de un contenedor centrado y con
+   padding. --novedades-edge-gap mide cuánto hay que empujar el
+   contenido de vuelta para que el texto quede exactamente donde
+   estaba (alineado con el resto de la página), aunque el fondo ya no
+   respete ese límite. Va después de las reglas base para poder pisar
+   el padding-inline de arriba. */
+.post-list .news-card,
+.post-year-marker {
+  width: 100vw;
+  margin-left: calc(-1 * (var(--novedades-edge-gap) + var(--space-4)));
+  padding-left: calc(var(--novedades-edge-gap) + var(--space-4));
+  padding-right: 0;
+}
+
+/* Los posteos son captions de Instagram pegadas tal cual (con
+   emojis a modo de viñeta) — se les saca el bullet nativo para no
+   duplicar el marcador. */
+.news-card-body ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* Foto cliqueable: sin JS, el enlace abre directamente el archivo de
+   imagen completo en el navegador. Con JS, main.js intercepta el clic
+   y la muestra en el <dialog class="lightbox"> de abajo. */
+.post-image-link {
+  position: relative;
+  display: block;
+  cursor: zoom-in;
+}
+
+.post-image-link:focus-visible {
+  outline-offset: -3px;
+}
+
+.post-image-link:hover .news-card-media img,
+.post-image-link:focus-visible .news-card-media img {
+  transform: scale(1.03);
+}
+
+.post-image-zoom-hint {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: rgba(26, 26, 26, 0.55);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.post-image-zoom-hint svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.post-image-link:hover .post-image-zoom-hint,
+.post-image-link:focus-visible .post-image-zoom-hint {
+  opacity: 1;
+}
+
+/* ---------- Lightbox (foto completa) ---------- */
+.lightbox {
+  position: relative;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  max-width: min(92vw, 60rem);
+  max-height: 92vh;
+  background: var(--color-surface);
+}
+
+.lightbox::backdrop {
+  background: rgba(26, 22, 18, 0.75);
+}
+
+.lightbox-img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(92vh - 2 * var(--space-2));
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  border-radius: calc(var(--radius-sm) - 2px);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -0.9rem;
+  right: -0.9rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid var(--color-surface);
+  background: var(--color-ink);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.lightbox-close svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.news-empty,
+.news-error {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  text-align: center;
+  color: var(--color-ink-soft);
+}
+
+/* ---------- Canal de WhatsApp (Inicio) ----------
+   Recuadro centrado inspirado en el bloque final de tekmaneducation.com
+   (caja de color con un ícono "volando" en una esquina) — mismo tipo
+   de idea, pero con textura, contenido e imagen propios: el rojo de
+   marca con la misma técnica de textura+color que el hero
+   (cta-red-bg.jpg) y el pájaro de CEDILIJ en vez de un cohete. */
+.whatsapp-cta {
+  position: relative;
+  background-color: var(--color-accent);
+  background-image: url("../img/cta-red-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--radius-lg);
+  padding: var(--space-7) var(--space-5);
+  text-align: center;
+  color: #fff;
+}
+
+.whatsapp-cta h2 {
+  color: #fff;
+  max-width: 34rem;
+  margin-inline: auto;
+}
+
+.whatsapp-cta p {
+  max-width: 26rem;
+  margin-inline: auto;
+  margin-bottom: var(--space-5);
+}
+
+.whatsapp-cta .btn-primary {
+  background: var(--color-surface);
+  color: var(--color-accent-dark);
+}
+
+.whatsapp-cta .btn-primary:hover,
+.whatsapp-cta .btn-primary:focus-visible {
+  background: var(--color-bg-alt);
+}
+
+.whatsapp-cta :focus-visible {
+  outline-color: #fff;
+}
+
+/* Pájaro decorativo, espejado para que mire hacia el texto. "Flota"
+   suavemente (--bird-rest-y parametriza el punto de reposo para que
+   la misma animación sirva en los dos layouts); ya existe una regla
+   global que desactiva animaciones con prefers-reduced-motion.
+   En mobile el texto ocupa casi todo el ancho de la caja, así que el
+   pájaro va arriba a la derecha (no hay lugar al costado sin tapar
+   texto); desde donde ya sobra espacio al costado del texto centrado,
+   pasa a estar centrado verticalmente sobre el borde derecho, como el
+   cohete de tekman. */
+.whatsapp-cta-bird {
+  position: absolute;
+  top: -1rem;
+  right: -0.75rem;
+  --bird-rest-y: 0px;
+  translate: 0 var(--bird-rest-y);
+  width: 5rem;
+  height: auto;
+  transform: scaleX(-1);
+  rotate: 10deg;
+  pointer-events: none;
+  animation: whatsapp-cta-float 3.5s ease-in-out infinite;
+}
+
+@media (min-width: 60rem) {
+  .whatsapp-cta-bird {
+    top: 50%;
+    right: -1rem;
+    --bird-rest-y: -50%;
+    width: 8rem;
+  }
+}
+
+@media (min-width: 80rem) {
+  .whatsapp-cta-bird {
+    right: -2.5rem;
+    width: 10rem;
+  }
+}
+
+@keyframes whatsapp-cta-float {
+  0%,
+  100% {
+    translate: 0 var(--bird-rest-y);
+  }
+  50% {
+    translate: 0 calc(var(--bird-rest-y) - 10px);
+  }
+}
+
+/* ---------- Ritmo escalonado (cards/items en cascada) ----------
+   Cada tarjeta o ítem de una grilla/lista se revela con un pequeño
+   retraso respecto al anterior, para que aparezcan en secuencia al
+   hacer scroll en vez de todas juntas. Ver skill frontend-design:
+   "un momento de motion bien elegido, no efectos sueltos". */
+.card-grid > [data-animate]:nth-child(1),
+.news-grid > [data-animate]:nth-child(1),
+.info-list > [data-animate]:nth-child(1) {
+  transition-delay: 0ms;
+}
+.card-grid > [data-animate]:nth-child(2),
+.news-grid > [data-animate]:nth-child(2),
+.info-list > [data-animate]:nth-child(2) {
+  transition-delay: 90ms;
+}
+.card-grid > [data-animate]:nth-child(3),
+.news-grid > [data-animate]:nth-child(3),
+.info-list > [data-animate]:nth-child(3) {
+  transition-delay: 180ms;
+}
+.card-grid > [data-animate]:nth-child(4),
+.news-grid > [data-animate]:nth-child(4),
+.info-list > [data-animate]:nth-child(4) {
+  transition-delay: 270ms;
+}
+.card-grid > [data-animate]:nth-child(5),
+.news-grid > [data-animate]:nth-child(5) {
+  transition-delay: 360ms;
+}
+.card-grid > [data-animate]:nth-child(6) {
+  transition-delay: 450ms;
+}
+
+/* ---------- Info list (horarios, contacto) ---------- */
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.info-list li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.info-list--stacked li {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.distincion-thumb {
+  display: block;
+  margin-top: var(--space-3);
+  max-width: min(16rem, 100%);
+  max-height: 200px;
+  width: auto;
+  height: auto;
+  border-radius: 0.3rem;
+}
+
+.distincion-thumb--wide {
+  max-width: min(28rem, 100%);
+}
+
+.distincion-thumb-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.distincion-thumb-row .distincion-thumb {
+  margin-top: 0;
+}
+
+/* ---------- Índice de revista (Piedra Libre) ---------- */
+.magazine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: var(--space-5) var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.magazine-issue {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.magazine-issue-cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 0.3rem;
+  box-shadow: 4px 4px 0 var(--color-shadow-card);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.magazine-issue:hover .magazine-issue-cover,
+.magazine-issue:focus-visible .magazine-issue-cover {
+  transform: translateY(-3px);
+  box-shadow: 6px 6px 0 var(--color-shadow-card);
+}
+
+.magazine-issue-num {
+  display: block;
+  margin-top: var(--space-2);
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 0.85rem;
+}
+
+.magazine-issue-theme {
+  display: block;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.magazine-issue-year {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-ink-soft);
+}
+
+/* Variante flotante de .about-figure: imagen chica con el texto
+   alrededor, en vez de bloque de ancho completo. */
+.about-figure--float {
+  float: left;
+  max-width: 11rem;
+  margin: 0 var(--space-5) var(--space-4) 0;
+}
+
+@media (max-width: 36rem) {
+  .about-figure--float {
+    float: none;
+    margin: 0 0 var(--space-4);
+  }
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* ---------- Video embebido (tutoriales biblioteca) ---------- */
+.video-embed {
+  aspect-ratio: 16 / 9;
+  border-radius: 0.3rem;
+  overflow: hidden;
+  box-shadow: 4px 4px 0 var(--color-shadow-card);
+}
+
+.video-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.video-embed-caption {
+  margin: var(--space-2) 0 0;
+  font-size: 0.9rem;
+}
+
+.info-list li > div > strong {
+  color: var(--color-primary);
+  display: block;
+}
+
+/* ---------- Listas de miembros (Equipo) ---------- */
+.member-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 40rem) {
+  .member-columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.member-columns h3 {
+  margin-bottom: var(--space-3);
+}
+
+.member-group {
+  margin-bottom: var(--space-6);
+}
+
+.member-group:last-child {
+  margin-bottom: 0;
+}
+
+.member-group h3 {
+  margin-bottom: var(--space-3);
+}
+
+.member-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.member-list li {
+  padding-block: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.member-list--columns {
+  column-width: 14rem;
+  column-gap: var(--space-6);
+}
+
+.member-list--columns li {
+  break-inside: avoid;
+}
+
+.member-card {
+  background: var(--color-bg);
+  border-radius: 0.6rem;
+  padding: var(--space-5);
+  box-shadow: 5px 5px 0 var(--color-shadow-card);
+}
+
+.member-card h3 {
+  margin-bottom: var(--space-3);
+}
+
+/* ---------- Archivo desplegable (Equipos de años anteriores) ---------- */
+.member-columns + details {
+  margin-top: var(--space-6);
+}
+
+.archive-toggle {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--color-primary);
+  padding: var(--space-2) 0;
+}
+
+.archive-toggle:hover,
+.archive-toggle:focus-visible {
+  text-decoration: underline;
+}
+
+.archive-year {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.archive-year h4 {
+  margin-bottom: var(--space-3);
+}
+
+.archive-year .about-figure {
+  max-width: 18rem;
+}
+
+.archive-list-label {
+  display: block;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+.archive-list-label:first-of-type {
+  margin-top: 0;
+}
+
+/* ---------- Footer ----------
+   La onda ya NO es una forma superpuesta de color plano (se
+   desalineaba cada vez que ajustábamos el tono de la textura).
+   Ahora el footer es una única imagen de fondo continua, recortada
+   arriba con una máscara con forma de onda — así la textura del
+   borde ondulado y la del cuerpo del footer son literalmente los
+   mismos píxeles, imposible que se desalineen. */
+.site-footer {
+  position: relative;
+  background-color: var(--color-primary);
+  background-image: url("../img/hero-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #d7e2f2;
+  margin-top: calc(-1 * var(--wave-h));
+  padding-top: calc(var(--space-6) + 2.5rem + var(--wave-h));
+  padding-bottom: var(--space-4);
+  -webkit-mask-image: url("../img/wave-mask.svg"), linear-gradient(#000 0 0);
+  -webkit-mask-size: 100% var(--wave-h), 100% calc(100% - var(--wave-h) + 1px);
+  -webkit-mask-position: top, bottom;
+  -webkit-mask-repeat: no-repeat, no-repeat;
+  mask-image: url("../img/wave-mask.svg"), linear-gradient(#000 0 0);
+  mask-size: 100% var(--wave-h), 100% calc(100% - var(--wave-h) + 1px);
+  mask-position: top, bottom;
+  mask-repeat: no-repeat, no-repeat;
+}
+
+.site-footer .container {
+  max-width: none;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.footer-grid h2,
+.footer-grid h3 {
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: var(--space-3);
+}
+
+.footer-grid a {
+  color: #d7e2f2;
+  text-decoration: none;
+}
+
+.footer-grid a:hover,
+.footer-grid a:focus-visible {
+  text-decoration: underline;
+}
+
+.footer-grid ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.footer-contact-whatsapp {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.footer-contact-whatsapp svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
+  color: #d7e2f2;
+}
+
+.footer-social {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-1);
+}
+
+.footer-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  transition: background var(--transition);
+}
+
+.footer-social a:hover,
+.footer-social a:focus-visible {
+  background: rgba(255, 255, 255, 0.24);
+  text-decoration: none;
+}
+
+.footer-social svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.footer-brand-bird {
+  margin-bottom: var(--space-2);
+  /* El logo es negro; se pasa a blanco para que se vea sobre el
+     azul del footer (brightness(0) lo deja negro puro pase lo que
+     pase, invert(1) lo da vuelta a blanco). */
+  filter: brightness(0) invert(1);
+}
+
+.footer-map {
+  margin-top: var(--space-2);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.footer-map-embed {
+  display: block;
+  width: 100%;
+  height: 140px;
+  border: 0;
+  /* Los colores por default de Google Maps (blanco/gris/rojo) chocan
+     con la paleta del sitio y llaman demasiado la atención en el
+     footer — se destiñe y se vuelve a teñir de azul con filtros CSS
+     (no requiere API key de Google, así que sigue siendo gratis). */
+  filter: grayscale(0.4) sepia(1) hue-rotate(179deg) saturate(2.2) brightness(0.96);
+}
+
+.footer-map-link {
+  display: inline-block;
+  margin-top: var(--space-2);
+  font-size: 0.9rem;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: var(--space-4);
+  font-size: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+/* ---------- Animación de aparición al hacer scroll ----------
+   El estado oculto SOLO se aplica cuando JS confirma (agregando
+   la clase js-animate a <body>) que va a encargarse de revelar
+   el contenido. Sin JS, con JS fallado, o con prefers-reduced-motion,
+   el contenido es visible desde el primer render — nunca depende
+   de que el usuario llegue a hacer scroll.
+   Usa la propiedad independiente "translate" (no "transform") para
+   el deslizamiento: .card/.news-card ya usan "transform" para el
+   levantamiento al hover, y si esta animación también usara
+   "transform" le ganaría por especificidad una vez revelada la
+   tarjeta, dejando el hover roto en todo lo que ya se reveló. */
+body.js-animate [data-animate] {
+  opacity: 0;
+  translate: 0 16px;
+  transition: opacity 500ms ease, translate 500ms ease;
+}
+
+body.js-animate [data-animate].is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* ---------- Pager entre subpáginas (Quiénes somos) ---------- */
+.subpage-pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.subpage-pager-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+}
+
+.subpage-pager-link svg {
+  flex-shrink: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--color-primary);
+}
+
+.subpage-pager-next {
+  margin-left: auto;
+  text-align: right;
+}
+
+.subpage-pager-eyebrow {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-soft);
+}
+
+.subpage-pager-title {
+  display: block;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-ink);
+  transition: color var(--transition);
+}
+
+.subpage-pager-link:hover .subpage-pager-title,
+.subpage-pager-link:focus-visible .subpage-pager-title {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* ---------- Breadcrumb / page hero simple ---------- */
+.page-hero {
+  padding-block: var(--space-6) var(--space-5);
+  background: var(--color-bg-alt);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.page-hero .eyebrow {
+  margin-bottom: var(--space-2);
+}
+
+.page-hero p {
+  max-width: 42rem;
+  color: var(--color-ink-soft);
+  font-size: 1.1rem;
+}

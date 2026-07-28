@@ -1,0 +1,15 @@
+.claude/
+Thumbs.db
+.DS_Store
+
+# Imágenes sin uso (versiones viejas reemplazadas por otras)
+assets/img/carrusel1.png
+assets/img/carrusel4.png
+assets/img/distincion-internacionales-1.jpg
+assets/img/distincion-internacionales-2.jpg
+assets/img/distincion-internacionales-3.jpg
+assets/img/distincion-nacionales-1.jpg
+assets/img/distincion-nacionales-2.jpg
+assets/img/distincion-nacionales-3.jpg
+assets/img/hero-gris-v2.jpg
+assets/img/textura-hero.png
