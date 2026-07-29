@@ -361,10 +361,17 @@ main > section:last-of-type {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  font-family: var(--font-heading);
-  font-weight: 700;
-  color: var(--color-primary);
   text-decoration: none;
+}
+
+/* Isotipo tipográfico real de marca: "cedilij" en minúscula, con la
+   fuente redondeada que usan en sus piezas gráficas (Fredoka, mejor
+   candidata gratuita — no está confirmado que sea la fuente exacta). */
+.brand-text strong {
+  font-family: "Fredoka", var(--font-heading);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-primary);
 }
 
 .brand img {
@@ -2004,6 +2011,13 @@ main > section:last-of-type {
   color: #fff;
   font-size: 1rem;
   margin-bottom: var(--space-3);
+}
+
+.footer-brand-name {
+  font-family: "Fredoka", var(--font-heading);
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
 }
 
 .footer-grid a {
