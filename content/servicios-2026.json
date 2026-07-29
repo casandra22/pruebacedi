@@ -2,7 +2,7 @@
   "titulo": "Menú de servicios CEDILIJ",
   "bajada": "Para que leer sea cosa de todos los días",
   "introduccion": "Experiencias, lecturas y arte a la carta. En nuestro Menú de Servicios encuentran propuestas de formación de lectores y capacitaciones para mediadores culturales. Hay de todo: actividades especiales para las infancias y juventudes, y otras para docentes, bibliotecaries, estudiantes de terciarios y universitarios. Algunas suceden en la Biblioteca de CEDILIJ y otras viajan a sus espacios.",
-  "_modelo_propuesta": "Cada propuesta tiene siempre las mismas 4 claves: titulo, destinataries, duracion, descripcion. Si un dato no está disponible, la clave queda como cadena vacía (\"\") en vez de eliminarse — así el formulario/plantilla de una propuesta nueva siempre se ve igual.",
+  "_modelo_propuesta": "Cada propuesta tiene siempre las mismas 5 claves: titulo, destinataries, duracion, resumen, descripcion. resumen es una síntesis de una sola línea (se muestra siempre visible en el desplegable cerrado, junto al título y destinataries); descripcion es el texto completo (solo visible al desplegar). Si un dato no está disponible, la clave queda como cadena vacía (\"\") en vez de eliminarse — así el formulario/plantilla de una propuesta nueva siempre se ve igual.",
   "categorias": [
     {
       "nombre": "Especiales",
@@ -11,36 +11,42 @@
           "titulo": "Magia de bibliotecas",
           "destinataries": "estudiantes desde Nivel Inicial hasta Secundaria",
           "duracion": "nivel Inicial y Primer Ciclo, 60 minutos; Segundo Ciclo y Secundaria, 80 minutos.",
+          "resumen": "Visita guiada a nuestra Biblioteca para conocer su funcionamiento y sumar una actividad de promoción de lectura.",
           "descripcion": "Una visita a nuestra Biblioteca Especializada en LIJ, con el ánimo de sensibilizar e informar sobre su funcionamiento. Incluye una breve actividad de promoción de lectura."
         },
         {
           "titulo": "Mesas de lecturas (itinerarios)",
           "destinataries": "",
           "duracion": "80 minutos",
+          "resumen": "Encuentro de lectura compartida en voz alta a partir de una selección de libros según una temática elegida.",
           "descripcion": "Encuentros cuyo eje central es \"compartir la lectura\" enriqueciendo los caminos lectores a partir de una especial selección de libros (según temática o relación particular). En cada banquete se propicia un momento de lectura en voz alta y la exploración individual de los materiales compartidos."
         },
         {
           "titulo": "Tertulias literarias",
           "destinataries": "alumnes de secundaria (un curso)",
           "duracion": "80 minutos",
+          "resumen": "Diálogo entre lectores adolescentes alrededor de un libro, con la opción de sumar la película.",
           "descripcion": "Un encuentro de diálogo entre lectores alrededor de un libro en particular (temática juvenil) donde sus participantes comparten opiniones, reflexiones y emociones en torno a la lectura de obras literarias. Opcional: ver la película. CEDILIJ pone a disposición su selección actual; o bien, el libro puede ser propuesto por el/la docente y su grupo de estudiantes."
         },
         {
           "titulo": "Jornada con el Puesto de los Libros",
           "destinataries": "para niñes, jóvenes, docentes, mediadores, comunidad educativa.",
           "duracion": "4 horas",
+          "resumen": "Instalación al aire libre del Puesto de los Libros, con asesoramiento de especialistas y actividad de cierre para adultos.",
           "descripcion": "Se trata de la instalación del Puesto de los Libros al aire libre o en espacios no convencionales, conjugando el convite de una selección de libros de la Biblioteca de CEDILIJ, con el asesoramiento de 2 especialistas. Finalizada la experiencia se realiza una actividad con los adultos y mediadores involucrados sobre criterios de selección de los materiales de lectura y la lógica de las intervenciones."
         },
         {
           "titulo": "Instantáneas de lectura, libros a flor de piel",
           "destinataries": "estudiantes de Nivel Secundario y Terciario",
           "duracion": "80 minutos",
+          "resumen": "Experiencia de lectura corporal con imágenes y producción de instantáneas propias.",
           "descripcion": "Experiencia de lecturas que atraviesan el cuerpo y lo capturan. Encuentro con imágenes y convite literario, producción de Instantáneas. Aportes conceptuales: el libro como objeto y la lectura de imágenes. El juego, la corporalidad, la exploración, la literatura, los libros y las imágenes."
         },
         {
           "titulo": "Bolsilleros CEDILIJ",
           "destinataries": "docentes",
           "duracion": "1 mes",
+          "resumen": "Biblioteca ambulante de 40 libros en préstamo por un mes para el aula.",
           "descripcion": "Los Bolsilleros son bibliotecas ambulantes que viajan en préstamo llevando 40 libros de literatura infantil y juvenil por el término de un mes. La selección puede ser surtida, obedeciendo a criterios como ciclo escolar, efemérides, temáticas específicas, entre otras."
         }
       ]
@@ -52,12 +58,14 @@
           "titulo": "Sandías",
           "destinataries": "niñes de 5 a 11 años",
           "duracion": "80 minutos",
+          "resumen": "Taller que combina artes plásticas y literatura a partir de lecturas del mundo natural.",
           "descripcion": "El taller involucra las artes plásticas y la literatura: lecturas del mundo natural y de las producciones que escritores y artistas plásticos han hecho a partir de sus propias miradas. El encuentro propone la realización de una producción plástica."
         },
         {
           "titulo": "Bichos",
           "destinataries": "niñes de Nivel Inicial y Primario",
           "duracion": "n. Inicial 40 minutos; N. Primario 80 minutos",
+          "resumen": "Taller sobre el mundo de los insectos a través de cuentos, coplas, juegos y libros de divulgación.",
           "descripcion": "El taller ofrece un acercamiento al mundo de los insectos con la palabra, el juego y la lectura, desde diversas miradas: cuentos, coplas, juegos de tradición oral, poesías y libros de divulgación científica."
         }
       ]
@@ -69,18 +77,21 @@
           "titulo": "Andar la naturalia",
           "destinataries": "docentes, mediadores y estudiantes",
           "duracion": "3 encuentros de 120 minutos cada uno (por cada nivel)",
+          "resumen": "Formación sobre cómo se presenta la naturaleza en la LIJ, vinculando lectura y vida al aire libre.",
           "descripcion": "Coordina: Mariano Medina y Juan Manuel Spicogna. Descubriéndonos en el mundo a partir de los libros para niños: proyecto de formación y sensibilización basado en los modos de presentar a la naturaleza en la LIJ y en los libros de divulgación dirigidos a niños. Vinculaciones entre actividades áulicas y vida al aire libre, promoción de la lectura y observación de fauna y flora."
         },
         {
           "titulo": "Paseo María Elena",
           "destinataries": "docentes, mediadores y estudiantes de profesorados",
           "duracion": "120 minutos",
+          "resumen": "Recorrido lúdico por la obra de María Elena Walsh a partir del archivo de CEDILIJ.",
           "descripcion": "Coordina: Mariano Medina y Sole Rebelles. Un encuentro jugado, un juego de encuentro: recorrido \"pitiriflaútico\" por la obra de María Elena Walsh. Se transita algunos de los rasgos más diversos y menos conocidos de esta autora paradigmática, a partir del patrimonio bibliográfico, discográfico y documental de CEDILIJ. Algunos de los contenidos: la palabra como juguete, recursos poéticos utilizados por la autora, diversidad de géneros musicales, entre otros."
         },
         {
           "titulo": "Atahualpa Yupanqui con los niños",
           "destinataries": "docentes, mediadores, estudiantes",
           "duracion": "3 encuentros de 120 minutos cada uno",
+          "resumen": "Capacitación docente sobre la vida y obra de Yupanqui como herramienta de formación de lectores.",
           "descripcion": "Coordina: Mariano Medina y Juan Manuel Spicogna. La vida y obra de un artista como herramienta para la formación de lectores. Capacitación docente con proyección de actividades escolares basada en experiencias realizadas por CEDILIJ en ámbitos rurales y urbanos a partir de los ejes: biografía (narrativa oral y escrita centrada en Historias de Vida) y los discursos poéticos populares (fundamentalmente la copla)."
         }
       ]
@@ -92,6 +103,7 @@
           "titulo": "Consultoría y asistencia técnica",
           "destinataries": "centros educativos",
           "duracion": "a determinar",
+          "resumen": "Asesoramiento para diseñar o fortalecer proyectos de oralidad, lectura y escritura en instituciones educativas.",
           "descripcion": "CEDILIJ ofrece asesoramiento para la implementación o fortalecimiento de proyectos de Oralidad, Lectura y Escritura en instituciones educativas de todos los niveles y modalidades, diseñando un plan acorde a las necesidades y demandas de cada centro educativo."
         }
       ]
@@ -103,12 +115,14 @@
           "titulo": "Ilustradores argentinos que abren fronteras",
           "destinataries": "",
           "duracion": "muestra de 15 días en la institución y taller de 80 minutos",
+          "resumen": "Muestra gráfica itinerante de 26 ilustradores argentinos destacados, con taller y recorrido guiado.",
           "descripcion": "Coordina: Soledad Rebelles. La muestra consiste en la presentación gráfica de 26 destacados ilustradores argentinos. Además, se ofrece un recorrido por los diversos autores. Incluye 14 paneles de 1,9 m de ancho x 2 m de alto que, por su tratamiento gráfico, se ven como 28 columnas, correspondientes a 26 ilustradores y a las 2 instituciones generadoras del proyecto (ALIJA y CEDILIJ)."
         },
         {
           "titulo": "Patio interior",
           "destinataries": "",
           "duracion": "muestra de 15 días en la institución y taller de 2 horas y media",
+          "resumen": "Muestra fotográfica sobre experiencias lectoras, acompañada de un taller de sensibilización.",
           "descripcion": "Coordina: Ignacio Scerbo y Soledad Rebelles. Muestra fotográfica sobre instancias lectoras e ilustraciones. Se acompaña de un taller de sensibilización que propone un recorrido por la experiencia lectora de los participantes y reflexiones en torno a las prácticas de lecturas. Incluye 9 paneles de 1 m de ancho x 2 m de alto con fotografías realizadas por CEDILIJ e ilustraciones aportadas por el artista argentino Istvansch."
         }
       ]

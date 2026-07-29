@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CEDILIJ: Centro de Difusión e Investigación de Literatura Infantil y Juvenil</title>
   <meta name="description" content="CEDILIJ es una organización que promueve, investiga y difunde la literatura infantil y juvenil desde Córdoba, Argentina, con talleres y actividades varias y una biblioteca y sala de lectura abiertas a toda la comunidad.">
-  <link rel="icon" type="image/svg+xml" href="assets/img/logo-placeholder.svg">
+  <link rel="icon" type="image/png" href="assets/img/logo-cedilij-favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,7 +17,10 @@
   <header class="site-header">
     <div class="nav-bar">
       <a class="brand" href="index.html">
-        <img src="assets/img/logo-placeholder.svg" alt="" width="40" height="40">
+        <span class="brand-logo">
+          <img class="brand-logo-color" src="assets/img/logo-cedilij.png" alt="" width="55" height="40">
+          <img class="brand-logo-white" src="assets/img/logo-cedilij-white-cutout.png" alt="" width="55" height="40" aria-hidden="true">
+        </span>
         <span class="brand-text">
           <strong>CEDILIJ</strong>
         </span>
@@ -65,7 +68,7 @@
       <div class="container">
         <div class="hero-copy">
           <h1>Centro de Difusión e Investigación de Literatura Infantil y Juvenil</h1>
-          <p>Somos una organización cordobesa que promueve, investiga y difunde la literatura para infancias y jóvenes, construyendo comunidad alrededor de la lectura y la palabra.</p>
+          <p>Somos una organización cordobesa sin fines de lucro que promueve, investiga y difunde la literatura para infancias y jóvenes, construyendo comunidad alrededor de la lectura y la palabra.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="quienes-somos.html">Conocé CEDILIJ</a>
             <a class="btn btn-outline" href="novedades.html">Ver novedades</a>
@@ -128,7 +131,7 @@
                Por ahora se actualiza a mano en los dos lugares; cuando
                esté el build automático desde Google Sheets, este resumen
                sale del mismo listado. -->
-          <article class="news-card" data-animate>
+          <a class="news-card" href="novedades.html#biblioteca-de-feria" data-animate>
             <div class="news-card-media">
               <img src="assets/img/novedad-biblioteca-feria.jpg" alt="Flyer de Biblioteca de feria: dos nenas leen libros ilustrados de animales tiradas en el piso de la biblioteca de CEDILIJ" width="640" height="800" loading="lazy">
             </div>
@@ -138,8 +141,8 @@
               <h3>Biblioteca de feria</h3>
               <p>Una tarde de vacaciones al abrigo de lecturas, escrituras y renovación de préstamos.</p>
             </div>
-          </article>
-          <article class="news-card" data-animate>
+          </a>
+          <a class="news-card" href="novedades.html#celebramos-devetach-90" data-animate>
             <div class="news-card-media">
               <img src="assets/img/novedad-devetach.jpg" alt="Flyer Celebramos Devetach 90: ilustración de un macetero con libros abiertos como flores, junto a los logos de las instituciones organizadoras" width="640" height="854" loading="lazy">
             </div>
@@ -149,8 +152,8 @@
               <h3>Convocatoria abierta: Celebramos Devetach 90</h3>
               <p>Homenaje institucional a Laura Devetach por sus 90 años. Inscribí tu actividad hasta el 1° de septiembre.</p>
             </div>
-          </article>
-          <article class="news-card" data-animate>
+          </a>
+          <a class="news-card" href="novedades.html#cuentos-con-bufanda" data-animate>
             <div class="news-card-media">
               <img src="assets/img/novedad-cuentos-bufanda.jpg" alt="Flyer de Cuentos con bufanda: ilustración de una narradora abrazando a un nene junto a una canasta de lana, con el texto Narraciones de Vivi Aguirre" width="640" height="800" loading="lazy">
             </div>
@@ -160,7 +163,7 @@
               <h3>Cuentos con bufanda</h3>
               <p>Ronda de cuentos tejidos con las narraciones de Vivi Aguirre. Actividad a la gorra.</p>
             </div>
-          </article>
+          </a>
         </div>
         <div style="margin-top: var(--space-5); text-align:center;">
           <a class="btn btn-primary" href="novedades.html">Ver todas las novedades</a>
@@ -172,12 +175,17 @@
     <section>
       <div class="container">
         <div class="whatsapp-cta" data-animate>
-          <img class="whatsapp-cta-bird" src="assets/img/logo-placeholder.svg" alt="" width="72" height="50" aria-hidden="true">
+          <svg class="whatsapp-cta-line" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <path d="M40,80 C180,-10 260,190 420,130 S620,20 700,150 S740,260 730,290" fill="none" stroke="var(--color-gold)" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 11"/>
+          </svg>
+          <img class="whatsapp-cta-bird" src="assets/img/logo-cedilij-gold.png" alt="" width="69" height="50" aria-hidden="true">
           <h2>¿Querés enterarte de todas nuestras novedades?</h2>
-          <p>Muy pronto vas a poder sumarte a nuestro canal de WhatsApp.</p>
-          <!-- [Completar: cuando exista el canal, cambiar este <button disabled> por
-               <a class="btn btn-primary" href="[link del canal]" target="_blank" rel="noopener noreferrer">] -->
-          <button type="button" class="btn btn-primary" disabled>Sumate al canal de WhatsApp</button>
+          <p>Seguinos en nuestras redes para no perderte nada.</p>
+          <div class="whatsapp-cta-links">
+            <a class="btn btn-primary" href="https://www.instagram.com/cedilij/" target="_blank" rel="noopener noreferrer">Instagram<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+            <a class="btn btn-primary" href="https://whatsapp.com/channel/0029VbDVmXAIt5rsOE6aBs2m" target="_blank" rel="noopener noreferrer">Canal de WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+            <a class="btn btn-primary" href="https://www.facebook.com/cedilij/" target="_blank" rel="noopener noreferrer">Facebook<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+          </div>
         </div>
       </div>
     </section>
@@ -187,7 +195,7 @@
     <div class="container">
       <div class="footer-grid">
         <div>
-          <img class="footer-brand-bird" src="assets/img/logo-placeholder.svg" alt="" width="48" height="33">
+          <img class="footer-brand-bird" src="assets/img/logo-cedilij-white-cutout.png" alt="" width="45" height="33">
           <h2>CEDILIJ</h2>
           <p>Centro de Difusión e Investigación de Literatura Infantil y Juvenil. Córdoba, Argentina.</p>
         </div>
@@ -212,7 +220,7 @@
         </div>
         <div>
           <h3>Horarios</h3>
-          <p>Martes y jueves<br>9 a 12 h y 14:30 a 17:30 h</p>
+          <p>Martes y jueves<br>9:30 a 12:30 h y 14:30 a 17:30 h<br>Sábados (cada 15 días)<br>16:30 a 19:30 h</p>
           <h3>Contacto</h3>
           <ul>
             <li class="footer-contact-whatsapp">

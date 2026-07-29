@@ -15,6 +15,14 @@
   --color-surface: #fffbf2; /* blanco hueso cálido — nunca #fff puro */
   --color-border: #e4d9be;
 
+  /* Pajaritos sueltos y de fondo sobre el crema, apenas más oscuros
+     que el fondo para que se noten sin generar ruido visual. Dos
+     variantes (distinta composición y tono) para que .section-alt
+     no repita exactamente el mismo patrón que el fondo base. */
+  --bg-pattern-birds: url("../img/bg-pattern-cream.svg");
+  --bg-pattern-birds-alt: url("../img/bg-pattern-cream-alt.svg");
+  --bg-pattern-birds-size: 1900px 1900px;
+
   /* Azul: un solo azul para todo (hero, cta, botones, footer) */
   --color-primary: #1f4270;
   --color-primary-dark: #15304f;
@@ -63,6 +71,16 @@
   --wave-h: clamp(2.5rem, 6vw, 5rem);
 }
 
+/* Fuente tipo crayón para h1 (Crayon Libre, GGBotNet, dominio público
+   CC0), autohospedada en assets/fonts/ — no está en Google Fonts. */
+@font-face {
+  font-family: "Crayon Libre";
+  src: url("../fonts/CrayonLibre-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ---------- Reset ---------- */
 *,
 *::before,
@@ -85,7 +103,10 @@ body {
   overflow-x: hidden; /* evita scroll horizontal por los fondos a sangre de Novedades */
   font-family: var(--font-body);
   color: var(--color-ink);
-  background: var(--color-bg);
+  background-color: var(--color-bg);
+  background-image: var(--bg-pattern-birds);
+  background-repeat: repeat;
+  background-size: var(--bg-pattern-birds-size);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -116,13 +137,12 @@ h4 {
 }
 
 h1 {
+  font-family: "Crayon Libre", var(--font-heading);
   font-weight: 800;
   line-height: 1.15;
   font-size: clamp(2.1rem, 4vw + 1rem, 3.2rem);
 }
 
-/* Fuente redondeada tipo bloque para h2, a pedido de la usuaria
-   (referencia visual, mejor candidata gratuita: Baloo 2). */
 h2 {
   font-family: "Baloo 2", var(--font-heading);
   font-weight: 700;
@@ -209,7 +229,10 @@ main > section:last-of-type {
 }
 
 .section-alt {
-  background: var(--color-bg-alt);
+  background-color: var(--color-bg-alt);
+  background-image: var(--bg-pattern-birds-alt);
+  background-repeat: repeat;
+  background-size: var(--bg-pattern-birds-size);
 }
 
 .section-head {
@@ -283,10 +306,6 @@ main > section:last-of-type {
   color: #fff;
 }
 
-.site-header.hero-transparent .brand img {
-  filter: brightness(0) invert(1);
-}
-
 .site-header.hero-transparent .nav-menu a[aria-current="page"] {
   color: #fff;
   border-bottom-color: var(--color-gold);
@@ -351,7 +370,37 @@ main > section:last-of-type {
 .brand img {
   height: 2.75rem;
   width: auto;
-  transition: filter var(--transition);
+}
+
+/* Dos versiones superpuestas del logo (a color / blanco con líneas
+   transparentes) que se cruzan en opacidad — reemplaza al filtro
+   brightness(0) invert(1) porque ese filtro no puede dejar las líneas
+   finas transparentes, solo recolorearlas. */
+.brand-logo {
+  position: relative;
+  display: inline-block;
+  width: 3.78rem; /* proporción real del logo (464x338) a 2.75rem de alto */
+  height: 2.75rem;
+}
+
+.brand-logo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity var(--transition);
+}
+
+.brand-logo-white {
+  opacity: 0;
+}
+
+.site-header.hero-transparent .brand-logo-color {
+  opacity: 0;
+}
+
+.site-header.hero-transparent .brand-logo-white {
+  opacity: 1;
 }
 
 .brand strong {
@@ -571,6 +620,7 @@ main > section:last-of-type {
 
   .nav-menu .nav-submenu a {
     padding: var(--space-2) var(--space-1);
+    color: #fff;
   }
 
   .site-header.nav-open .nav-menu {
@@ -639,7 +689,7 @@ main > section:last-of-type {
   /* hero-bg.jpg = textura + azul ya combinados en un solo archivo,
      igual que hace tekmaneducation.com (imagen directa, sin blend
      mode ni máscara CSS). Generado a partir de la textura provista
-     por la usuaria; 23 KB en vez del ~1 MB de los intentos previos. */
+     elegida; 23 KB en vez del ~1 MB de los intentos previos. */
   background-image: url("../img/hero-bg.jpg");
   background-size: cover;
   background-position: center;
@@ -723,7 +773,7 @@ main > section:last-of-type {
 .hero-copy .hero-actions {
   justify-content: center;
   margin-top: var(--space-5);
-  margin-bottom: 1.2rem; /* ~0.5cm extra que pidió la usuaria */
+  margin-bottom: 1.2rem;
 }
 
 .hero-actions {
@@ -969,13 +1019,84 @@ main > section:last-of-type {
   margin-bottom: 0;
 }
 
-.service-card-meta {
-  margin: 0 0 var(--space-1);
+/* ---------- Servicios: desplegables ----------
+   Fila de ancho completo, beige/hueso liso (sin el ciclo de color de
+   .card) — <details>/<summary> nativo, sin JS. Cerrado se ve título +
+   destinataries + resumen de una línea; abierto suma duración y
+   descripción completa. */
+.service-accordion {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.service-item {
+  background: var(--color-surface);
+  color: var(--color-ink);
+  border: 1px solid var(--color-border);
+  border-radius: 0.4rem;
+  box-shadow: 5px 5px 0 var(--color-shadow-card);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.service-item:hover,
+.service-item:focus-within {
+  transform: translateY(-3px);
+  box-shadow: 8px 8px 0 var(--color-shadow-card);
+}
+
+.service-item :focus-visible {
+  outline-color: var(--color-ink);
+}
+
+.service-item-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  cursor: pointer;
+  list-style: none;
+}
+
+.service-item-summary::-webkit-details-marker {
+  display: none;
+}
+
+.service-item-heading {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.service-item-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.service-item-destinataries,
+.service-item-resumen {
+  display: block;
   font-size: 0.9rem;
 }
 
-.service-card-meta:last-of-type {
-  margin-bottom: var(--space-3);
+.service-item-chevron {
+  flex-shrink: 0;
+  transition: transform var(--transition);
+}
+
+.service-item[open] .service-item-chevron {
+  transform: rotate(180deg);
+}
+
+.service-item-body {
+  padding: 0 var(--space-4) var(--space-4);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.service-item-body p {
+  margin: 0;
 }
 
 /* ---------- Novedades ---------- */
@@ -994,6 +1115,9 @@ main > section:last-of-type {
   box-shadow: 5px 5px 0 var(--color-shadow-card);
   rotate: -0.5deg;
   transition: transform var(--transition), box-shadow var(--transition), rotate var(--transition);
+  scroll-margin-top: calc(var(--header-h, 5rem) + var(--space-4));
+  color: inherit;
+  text-decoration: none;
 }
 
 .news-grid > .news-card:nth-child(4n + 2) {
@@ -1097,19 +1221,12 @@ main > section:last-of-type {
 
 /* ---------- Novedades: listado tipo blog (página Novedades) ----------
    Un post entero por fila (no una tarjeta): foto recortada arriba,
-   cuerpo de texto completo abajo. El fondo de cada post llega hasta
-   el borde de la ventana (sangrado, ver --novedades-edge-gap más
-   abajo), pasando por debajo de la barra lateral, que se dibuja
-   encima porque va después en el HTML. El texto/imagen adentro sí
-   quedan en una columna angosta (.news-card-inner) para que se lean
-   cómodos. */
+   cuerpo de texto completo abajo, dentro del ancho normal de
+   .container (misma tarjeta que .news-card en cualquier otro lado
+   del sitio). El texto/imagen adentro quedan en una columna angosta
+   (.news-card-inner) para que se lean cómodos. */
 :root {
   --novedades-sidebar-w: 18rem;
-  /* Distancia del borde de la ventana hasta donde .container empieza
-     a mostrar contenido (su margen de centrado + su padding). Se usa
-     para que el fondo llegue al borde real de la pantalla mientras el
-     texto adentro se mantiene alineado con el resto de la página. */
-  --novedades-edge-gap: max(0px, calc((100vw - var(--container-w)) / 2));
 }
 
 .novedades-layout {
@@ -1259,22 +1376,6 @@ main > section:last-of-type {
   flex-shrink: 0;
 }
 
-/* Ítem sin link todavía (falta el dato real, ver comentario HTML) */
-.novedades-follow-pending {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-2) var(--space-3);
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 600;
-}
-
-.novedades-follow-pending em {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 0.85rem;
-}
-
 .novedades-follow :focus-visible {
   outline-color: #fff;
 }
@@ -1336,22 +1437,6 @@ main > section:last-of-type {
   margin: 0;
   padding-inline: var(--space-4);
   scroll-margin-top: calc(var(--header-h, 5rem) + var(--space-4));
-}
-
-/* El fondo llega hasta el borde de la ventana (no solo hasta el borde
-   de .container) en cualquier ancho, no solo en desktop: técnica
-   clásica de "sangrado" para escapar de un contenedor centrado y con
-   padding. --novedades-edge-gap mide cuánto hay que empujar el
-   contenido de vuelta para que el texto quede exactamente donde
-   estaba (alineado con el resto de la página), aunque el fondo ya no
-   respete ese límite. Va después de las reglas base para poder pisar
-   el padding-inline de arriba. */
-.post-list .news-card,
-.post-year-marker {
-  width: 100vw;
-  margin-left: calc(-1 * (var(--novedades-edge-gap) + var(--space-4)));
-  padding-left: calc(var(--novedades-edge-gap) + var(--space-4));
-  padding-right: 0;
 }
 
 /* Los posteos son captions de Instagram pegadas tal cual (con
@@ -1485,15 +1570,39 @@ main > section:last-of-type {
 }
 
 .whatsapp-cta h2 {
+  position: relative;
+  z-index: 1;
   color: #fff;
   max-width: 34rem;
   margin-inline: auto;
 }
 
 .whatsapp-cta p {
+  position: relative;
+  z-index: 1;
   max-width: 26rem;
   margin-inline: auto;
   margin-bottom: var(--space-5);
+}
+
+/* Garabato punteado de fondo, inspirado en las líneas sueltas de
+   tekmaneducation.com — puramente decorativo, detrás del texto. */
+.whatsapp-cta-line {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.whatsapp-cta-links {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
 }
 
 .whatsapp-cta .btn-primary {
@@ -1521,11 +1630,11 @@ main > section:last-of-type {
    cohete de tekman. */
 .whatsapp-cta-bird {
   position: absolute;
-  top: -1rem;
+  top: -1.25rem;
   right: -0.75rem;
   --bird-rest-y: 0px;
   translate: 0 var(--bird-rest-y);
-  width: 5rem;
+  width: 9rem;
   height: auto;
   transform: scaleX(-1);
   rotate: 10deg;
@@ -1538,14 +1647,14 @@ main > section:last-of-type {
     top: 50%;
     right: -1rem;
     --bird-rest-y: -50%;
-    width: 8rem;
+    width: 11rem;
   }
 }
 
 @media (min-width: 80rem) {
   .whatsapp-cta-bird {
     right: -2.5rem;
-    width: 10rem;
+    width: 13rem;
   }
 }
 
@@ -1566,29 +1675,37 @@ main > section:last-of-type {
    "un momento de motion bien elegido, no efectos sueltos". */
 .card-grid > [data-animate]:nth-child(1),
 .news-grid > [data-animate]:nth-child(1),
-.info-list > [data-animate]:nth-child(1) {
+.info-list > [data-animate]:nth-child(1),
+.service-accordion > [data-animate]:nth-child(1) {
   transition-delay: 0ms;
 }
 .card-grid > [data-animate]:nth-child(2),
 .news-grid > [data-animate]:nth-child(2),
-.info-list > [data-animate]:nth-child(2) {
+.info-list > [data-animate]:nth-child(2),
+.service-accordion > [data-animate]:nth-child(2) {
   transition-delay: 90ms;
 }
 .card-grid > [data-animate]:nth-child(3),
 .news-grid > [data-animate]:nth-child(3),
-.info-list > [data-animate]:nth-child(3) {
+.info-list > [data-animate]:nth-child(3),
+.service-accordion > [data-animate]:nth-child(3) {
   transition-delay: 180ms;
 }
 .card-grid > [data-animate]:nth-child(4),
 .news-grid > [data-animate]:nth-child(4),
-.info-list > [data-animate]:nth-child(4) {
+.info-list > [data-animate]:nth-child(4),
+.service-accordion > [data-animate]:nth-child(4) {
   transition-delay: 270ms;
 }
 .card-grid > [data-animate]:nth-child(5),
-.news-grid > [data-animate]:nth-child(5) {
+.news-grid > [data-animate]:nth-child(5),
+.info-list > [data-animate]:nth-child(5),
+.service-accordion > [data-animate]:nth-child(5) {
   transition-delay: 360ms;
 }
-.card-grid > [data-animate]:nth-child(6) {
+.card-grid > [data-animate]:nth-child(6),
+.info-list > [data-animate]:nth-child(6),
+.service-accordion > [data-animate]:nth-child(6) {
   transition-delay: 450ms;
 }
 
@@ -1610,6 +1727,13 @@ main > section:last-of-type {
 .info-list--stacked li {
   flex-direction: column;
   align-items: flex-start;
+}
+
+.info-sublist {
+  margin: var(--space-2) 0 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: var(--space-1);
 }
 
 .distincion-thumb {
@@ -1943,10 +2067,6 @@ main > section:last-of-type {
 
 .footer-brand-bird {
   margin-bottom: var(--space-2);
-  /* El logo es negro; se pasa a blanco para que se vea sobre el
-     azul del footer (brightness(0) lo deja negro puro pase lo que
-     pase, invert(1) lo da vuelta a blanco). */
-  filter: brightness(0) invert(1);
 }
 
 .footer-map {

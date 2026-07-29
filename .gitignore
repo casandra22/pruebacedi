@@ -3,6 +3,7 @@ Thumbs.db
 .DS_Store
 
 # Imágenes sin uso (versiones viejas reemplazadas por otras)
+assets/img/logo-placeholder.svg
 assets/img/carrusel1.png
 assets/img/carrusel4.png
 assets/img/distincion-internacionales-1.jpg
