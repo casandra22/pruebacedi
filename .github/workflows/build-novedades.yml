@@ -22,17 +22,26 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Generar novedades.html e index.html desde el Sheet
-        run: node scripts/build-novedades.mjs
-
-      - name: Commitear y subir cambios si hay novedades nuevas
+      - name: Generar y subir novedades (con reintento si otra corrida se adelantó)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if [ -n "$(git status --porcelain novedades.html index.html assets/img)" ]; then
+          for intento in 1 2 3 4 5; do
+            node scripts/build-novedades.mjs
+            if [ -z "$(git status --porcelain novedades.html index.html assets/img)" ]; then
+              echo "Sin cambios en las novedades."
+              exit 0
+            fi
             git add novedades.html index.html assets/img
             git commit -m "Actualizar novedades desde Google Sheets"
-            git push
-          else
-            echo "Sin cambios en las novedades."
-          fi
+            if git push; then
+              echo "Push exitoso."
+              exit 0
+            fi
+            echo "Intento $intento: otra corrida subió cambios primero, reintento desde el estado actual del repo."
+            sleep $((RANDOM % 5 + 2))
+            git fetch origin main
+            git reset --hard origin/main
+          done
+          echo "No se pudo subir después de varios intentos."
+          exit 1
