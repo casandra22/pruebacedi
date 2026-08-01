@@ -72,62 +72,29 @@
       <div class="container">
         <!--
           NOVEDADES: formato tipo blog (cada post entero en la misma
-          página, no hay "leer más" ni tarjetas). Por ahora estos posts
-          se cargan a mano; más adelante este listado se va a generar
-          automáticamente con un proceso de build (GitHub Actions) que
-          lee, de un Google Sheet, una fila por novedad con estas
-          columnas y genera cada <article class="news-card">:
-            - fecha                 -> texto de .news-date
-            - tipo                  -> "Noticia" o "Actividad": data-type="noticia|actividad" en el
-                                       <article> (lo usa el filtro de la barra lateral) y
-                                       .news-tag--noticia / .news-tag--actividad en la etiqueta visible
-            - foto                  -> src de la <img> y href de .post-image-link
-            - descripción de foto   -> atributo alt de esa <img> (importante para accesibilidad)
-            - título                -> <h2>
-            - cuerpo de texto       -> <p>
-            - link (opcional)       -> <a class="news-card-link">; si la columna viene vacía, no se genera el enlace
-          La foto se ve recortada; al hacer clic o Enter se abre completa
-          en el <dialog class="lightbox"> del final de la página (sin JS,
-          el enlace igual abre el archivo de imagen completo). Ver
-          .claude/NO_NEGOCIABLES.md.
+          página, no hay "leer más" ni tarjetas). Todo lo que está entre
+          NOVEDADES:LISTA:START y NOVEDADES:LISTA:END (y entre
+          NOVEDADES:AÑOS:START/END más abajo) se regenera solo:
+          scripts/build-novedades.mjs lee el Google Sheet publicado como
+          CSV (columnas: fecha, tipo, titulo, resumen, cuerpo,
+          imagen_link, imagen_alt, link_texto, link_url) y reescribe
+          estos bloques. No conviene editar a mano adentro de esos
+          marcadores: el próximo build lo pisa. Para cargar una novedad
+          nueva se completa una fila en el Sheet (imagen_link puede ser
+          un link de Drive, que el build descarga solo, o el nombre de
+          un archivo ya subido a mano a assets/img/). Ver
+          .claude/NO_NEGOCIABLES.md y scripts/build-novedades.mjs.
         -->
         <div class="novedades-layout">
+          <div class="novedades-main">
+          <!-- NOVEDADES:LISTA:START -->
           <p id="year-2026" class="post-year-marker">2026</p>
-          <div class="post-list" id="news-list">
-            <article class="news-card" id="biblioteca-de-feria" data-animate data-type="actividad">
+          <div class="post-list">
+            <article class="news-card" id="celebramos-los-90-anos-de-laura-devetach" data-animate data-type="noticia">
               <div class="news-card-inner">
-                <a class="post-image-link" href="assets/img/novedad-biblioteca-feria.jpg">
+                <a class="post-image-link" href="assets/img/novedad-celebramos-los-90-anos-de-laura-devetach.webp">
                   <div class="news-card-media">
-                    <img src="assets/img/novedad-biblioteca-feria.jpg" alt="Flyer de Biblioteca de feria: dos nenas leen libros ilustrados de animales tiradas en el piso de la biblioteca de CEDILIJ" width="640" height="800" loading="lazy">
-                  </div>
-                  <span class="post-image-zoom-hint" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M11 8v6M8 11h6"/><path d="M21 21l-4.3-4.3"/></svg>
-                  </span>
-                  <span class="visually-hidden"> — Ver foto completa</span>
-                </a>
-                <div class="news-card-body">
-                  <span class="news-tag news-tag--actividad">Actividad</span>
-                  <span class="news-date">18 de julio de 2026</span>
-                  <h2>Biblioteca de feria</h2>
-                  <p>🔖 ¡¡ Este sábado nos vemos en Biblioteca de Feria !!</p>
-                  <p>Se viene una tarde de vacaciones al abrigo de lecturas, escrituras, exploración de estantes y renovación de préstamos 🙂</p>
-                  <p>🔸 ¡Además! 🔸 La infaltable posibilidad de asociarse a un espacio cultural especializado en literatura infantil y juvenil... y comenzar a llevarse lecturas a casa</p>
-                  <p>¡Se agenda este dato!<br>A las 17:30 h hacemos ronda con:</p>
-                  <ul>
-                    <li>🔹 Lecturas</li>
-                    <li>🔹 Micro experiencias de escritura</li>
-                    <li>🔹 Convites poéticos</li>
-                  </ul>
-                  <p>~ Les esperamos el sábado 18 de julio de 16:30 a 19:30 h en CEDILIJ, ubicado en Pje. Revol 56, uno de los pasajes más bonitos de B° Güemes ~</p>
-                  <p>🤍 ¡¿No es un plan mundial? Pasear por @paseo_de_las_artes y encontrarnos en la Biblioteca</p>
-                </div>
-              </div>
-            </article>
-            <article class="news-card" id="celebramos-devetach-90" data-animate data-type="noticia">
-              <div class="news-card-inner">
-                <a class="post-image-link" href="assets/img/novedad-devetach.jpg">
-                  <div class="news-card-media">
-                    <img src="assets/img/novedad-devetach.jpg" alt="Flyer Celebramos Devetach 90: ilustración de un macetero con libros abiertos como flores, junto a los logos de las instituciones organizadoras" width="640" height="854" loading="lazy">
+                    <img src="assets/img/novedad-celebramos-los-90-anos-de-laura-devetach.webp" alt="La imagen es un flyer de la convocatoria." loading="lazy">
                   </div>
                   <span class="post-image-zoom-hint" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M11 8v6M8 11h6"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -136,24 +103,23 @@
                 </a>
                 <div class="news-card-body">
                   <span class="news-tag news-tag--noticia">Noticia</span>
-                  <span class="news-date">15 de julio de 2026</span>
-                  <h2>Convocatoria abierta: Celebramos Devetach 90</h2>
-                  <p>🎉 ¡ Celebrar a Laura Devetach ! 🎉</p>
+                  <span class="news-date">16 de julio de 2026</span>
+                  <h2>Celebramos los 90 años de Laura Devetach</h2>
+                  <p>🌼 ¡ Celebrar a Laura Devetach ! 🌼</p>
                   <p>En una organización conjunta entre @cedilij, @cultura.cba, @teatrorealcba, @educacioncba y @lecturacba, invitamos a participar del homenaje institucional a la reconocida escritora Laura Devetach, con motivo de su 90° aniversario que se celebrará el próximo mes de octubre de 2026</p>
                   <p>Con el objetivo de celebrar su vida y su invaluable aporte, la convocatoria invita a escuelas, centros culturales, bibliotecas, talleres, teatros y museos a organizar actividades independientes, autogestivas y de acceso libre y gratuito durante todo el mes de octubre 🌻</p>
-                  <p>📩 Las entidades interesadas en sumarse a esta celebración interdisciplinaria pueden inscribir sus propuestas desde el miércoles 15 de julio hasta el 1 de septiembre de 2026, completando el formulario: <a href="https://forms.gle/Txmp6k9Ms7mW2vF49" target="_blank" rel="noopener noreferrer">forms.gle/Txmp6k9Ms7mW2vF49<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a> (enlace en Bio!)</p>
-                  <p>🔸 Las iniciativas recibidas serán integradas y difundidas a través de los canales oficiales de la programación del homenaje 🔸</p>
+                  <p>📝Las entidades interesadas en sumarse a esta celebración interdisciplinaria pueden inscribir sus propuestas desde el miércoles 15 de julio hasta el 1 de septiembre de 2026, completando el formulario: <a href="https://forms.gle/Txmp6k9Ms7mW2vF49" target="_blank" rel="noopener noreferrer">https://forms.gle/Txmp6k9Ms7mW2vF49<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></p>
+                  <p>🔸Las iniciativas recibidas serán integradas y difundidas a través de los canales oficiales de la programación del homenaje 🔸</p>
                   <p>¡¡ Gracias a todas las organizaciones que adhieren a la convocatoria y celebración !!</p>
-                  <p>Toda la info en la nota completa de <a href="https://prensa.cba.gov.ar/informacion-general/el-miercoles-abre-la-convocatoria-para-el-homenaje-a-los-90-anos-de-la-escritora-laura-devetach/" target="_blank" rel="noopener noreferrer">@cultura.cba<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a> 💚</p>
-                  <a class="news-card-link" href="https://forms.gle/Txmp6k9Ms7mW2vF49" target="_blank" rel="noopener noreferrer">Completar formulario de inscripción<span class="visually-hidden"> (se abre en una pestaña nueva)</span> →</a>
+                  <a class="news-card-link" href="https://prensa.cba.gov.ar/informacion-general/el-miercoles-abre-la-convocatoria-para-el-homenaje-a-los-90-anos-de-la-escritora-laura-devetach/" target="_blank" rel="noopener noreferrer">Toda la info en la nota completa de la Cultura cba 💚<span class="visually-hidden"> (se abre en una pestaña nueva)</span> →</a>
                 </div>
               </div>
             </article>
-            <article class="news-card" id="cuentos-con-bufanda" data-animate data-type="actividad">
+            <article class="news-card" id="biblioteca-de-feria" data-animate data-type="actividad">
               <div class="news-card-inner">
-                <a class="post-image-link" href="assets/img/novedad-cuentos-bufanda.jpg">
+                <a class="post-image-link" href="assets/img/novedad-biblioteca-de-feria.webp">
                   <div class="news-card-media">
-                    <img src="assets/img/novedad-cuentos-bufanda.jpg" alt="Flyer de Cuentos con bufanda: ilustración de una narradora abrazando a un nene junto a una canasta de lana, con el texto Narraciones de Vivi Aguirre" width="640" height="800" loading="lazy">
+                    <img src="assets/img/novedad-biblioteca-de-feria.webp" alt="En la imagen hay una foto desde arriba de una niña leyendo libros acostada en el piso de la biblioteca." loading="lazy">
                   </div>
                   <span class="post-image-zoom-hint" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M11 8v6M8 11h6"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -162,17 +128,80 @@
                 </a>
                 <div class="news-card-body">
                   <span class="news-tag news-tag--actividad">Actividad</span>
-                  <span class="news-date">14 de julio de 2026</span>
-                  <h2>Cuentos con bufanda</h2>
-                  <p>🧣 ¡ Nueva edición de Cuentos con bufanda !</p>
-                  <p>Les esperamos en la Biblioteca de @cedilij para una ronda de cuentos tejidos, del derecho y del revés...</p>
-                  <p>Junto a las narraciones de nuestra cumpa @mviviaguirre habitamos el espacio de una manera muy especial 🌿</p>
-                  <p>∆ Martes 14 a las 17:30 h<br>∆ Pje. Revol 56 - @paseo_de_las_artes</p>
-                  <p>🔸 Actividad para todas las edades y a la gorra 🔸</p>
-                  <p>🧶 ¡¡ Ese día hay Biblioteca abierta y aprovechamos la previa !!</p>
+                  <span class="news-date">15 de julio de 2026</span>
+                  <h2>Biblioteca de feria</h2>
+                  <p>🎐¡¡ Este sábado nos vemos en Biblioteca de Feria !!</p>
+                  <p>Se viene una tarde de vacaciones al abrigo de lecturas, escrituras, exploración de estantes y renovación de préstamos ☺️</p>
+                  <p>🔸¡Además! 🔸 La infaltable posibilidad de asociarse a un espacio cultural especializado en literatura infantil y juvenil... y comenzar a llevarse lecturas a casa</p>
+                  <p>¡Se agenda este dato!</p>
+                  <p>A las 17:30 h hacemos ronda con:</p>
+                  <p>🌀 Lecturas</p>
+                  <p>🌀 Micro experiencias de escritura</p>
+                  <p>🌀 Convites poéticos</p>
+                  <p>~ Les esperamos el sábado 18 de julio de 16:30 a 19:30 h en CEDILIJ, ubicado en Pje. Revol 56, uno de los pasajes más bonitos de B° Güemes ~</p>
+                  <p>🤍 ¡¿No es un plan mundial? Pasear por el PAseo de las Artes y encontrarnos en la Biblioteca</p>
                 </div>
               </div>
             </article>
+            <article class="news-card" id="cuentos-con-bufanda" data-animate data-type="actividad">
+              <div class="news-card-inner">
+                <a class="post-image-link" href="assets/img/novedad-cuentos-con-bufanda.webp">
+                  <div class="news-card-media">
+                    <img src="assets/img/novedad-cuentos-con-bufanda.webp" alt="En la imagen se ve una ilustración de Mariana Ruiz Johnson de una mujer poniéndole una bufanda roja a un niño." loading="lazy">
+                  </div>
+                  <span class="post-image-zoom-hint" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M11 8v6M8 11h6"/><path d="M21 21l-4.3-4.3"/></svg>
+                  </span>
+                  <span class="visually-hidden"> — Ver foto completa</span>
+                </a>
+                <div class="news-card-body">
+                  <span class="news-tag news-tag--actividad">Actividad</span>
+                  <span class="news-date">9 de julio de 2026</span>
+                  <h2>Cuentos con bufanda</h2>
+                  <p>🧶 ¡ Nueva edición de Cuentos con bufanda !</p>
+                  <p>Les esperamos en la Biblioteca de cedilij para una ronda de cuentos tejidos, del derecho y del revés...</p>
+                  <p>Junto a las narraciones de nuestra cumpa Vivi Aguirre habitamos el espacio de una manera muy especial 🌿</p>
+                  <p>∆ Martes 14 a las 17:30 h</p>
+                  <p>∆ Pje. Revol 56 - Paseo de las Artes</p>
+                  <p>🔸Actividad para todas las edades y a la gorra 🔸</p>
+                  <p>🌥️¡¡ Ese día hay Biblioteca abierta y aprovechamos la previa !!</p>
+                </div>
+              </div>
+            </article>
+            <article class="news-card" id="tertulia-literaria-virtual-harry-potter" data-animate data-type="actividad">
+              <div class="news-card-inner">
+                <a class="post-image-link" href="assets/img/novedad-tertulia-literaria-virtual-harry-potter.webp">
+                  <div class="news-card-media">
+                    <img src="assets/img/novedad-tertulia-literaria-virtual-harry-potter.webp" alt="En la imagen se lee el título &quot;terturlia literaria virtual&quot; y la información de la actividad, debajo hay un dibujo de el personaje Harry Potter, un niño de anteojos volando en una escoba." loading="lazy">
+                  </div>
+                  <span class="post-image-zoom-hint" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M11 8v6M8 11h6"/><path d="M21 21l-4.3-4.3"/></svg>
+                  </span>
+                  <span class="visually-hidden"> — Ver foto completa</span>
+                </a>
+                <div class="news-card-body">
+                  <span class="news-tag news-tag--actividad">Actividad</span>
+                  <span class="news-date">2 de julio de 2026</span>
+                  <h2>Tertulia literaria virtual - Harry Potter</h2>
+                  <p>🔮 De resistir en Buenos Aires a volar hacia Hogwarts...</p>
+                  <p>¡Atención, comunidad lectora! Después de sobrevivir a la nevada mortal, esquivar a los Manos y luchar codo a codo junto a Juan Salvo en El Eternauta... nos esperan las varitas, las escobas voladoras y los hechizos</p>
+                  <p>¡Sí, se viene la Tertulia Literaria de Harry Potter y la Piedra Filosofal!</p>
+                  <p>🏡 El lunes 27 de julio a las 19.30 h nos encontraremos de manera virtual (enlace en la BIO de Instagram) para charlar sobre la obra y su versión audiovisual, así que la misión para el próximo encuentro es:</p>
+                  <p>🪔 Leer el libro (o repasar la peli si venís con el tiempo justo).</p>
+                  <p>🪔 Seleccionar un fragmento para romper el hielo.</p>
+                  <p>🪔 Traer las teorías más locas, los debates sobre las casas de Hogwarts y ganas de descubrir los secretos detrás de la magia.</p>
+                  <p>Dirigida a toda la familia 🌙</p>
+                  <p>¡Prepará tu túnica y agendalo! Nos vemos en el próximo andén 🪄✨</p>
+                  <p>Actividad a la gorra</p>
+                  <p>💌(sugerido: $5000)</p>
+                  <p>+info: cedilijargentina@gmail.com</p>
+                  <p>Wsp 3518175972</p>
+                  <a class="news-card-link" href="https://l.instagram.com/?u=https%3A%2F%2Fmeet.google.com%2Fjvz-mkvk-bwf&amp;e=AUDN8lm3otGdaLE7ZbCWnwIXMVtYGeOO2NpBGUJbQHDV9Dx05-ZI7K3ucdjuZ6awtY9p_cNYNtTaKnb8k9LypvtO8otENYEUa6ygg34tjAhIhBW32MhBxZHyVXr6md_SdIEbEHwbpEi0HDcGFEzIJg" target="_blank" rel="noopener noreferrer">¡Link al meet!<span class="visually-hidden"> (se abre en una pestaña nueva)</span> →</a>
+                </div>
+              </div>
+            </article>
+          </div>
+          <!-- NOVEDADES:LISTA:END -->
           </div>
 
           <div class="novedades-sidebar">
@@ -213,7 +242,9 @@
             <nav class="novedades-years" aria-label="Navegá por año">
               <h2>Navegá por año</h2>
               <ul>
+                <!-- NOVEDADES:AÑOS:START -->
                 <li><a href="#year-2026">2026</a></li>
+                <!-- NOVEDADES:AÑOS:END -->
               </ul>
             </nav>
           </div>

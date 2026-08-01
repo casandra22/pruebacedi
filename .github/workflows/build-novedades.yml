@@ -1,0 +1,36 @@
+name: Actualizar Novedades
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generar novedades.html e index.html desde el Sheet
+        run: node scripts/build-novedades.mjs
+
+      - name: Commitear y subir cambios si hay novedades nuevas
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain novedades.html index.html assets/img)" ]; then
+            git add novedades.html index.html assets/img
+            git commit -m "Actualizar novedades desde Google Sheets"
+            git push
+          else
+            echo "Sin cambios en las novedades."
+          fi

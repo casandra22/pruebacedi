@@ -127,43 +127,46 @@
           <p>Actividades, talleres y noticias recientes de CEDILIJ.</p>
         </div>
         <div class="news-grid">
-          <!-- Resumen de las 3 novedades más recientes de novedades.html.
-               Por ahora se actualiza a mano en los dos lugares; cuando
-               esté el build automático desde Google Sheets, este resumen
-               sale del mismo listado. -->
-          <a class="news-card" href="novedades.html#biblioteca-de-feria" data-animate>
+          <!-- Las 3 novedades más recientes, generadas por
+               scripts/build-novedades.mjs desde el mismo Google Sheet
+               que alimenta novedades.html. No editar a mano entre
+               NOVEDADES-PREVIEW:START y NOVEDADES-PREVIEW:END, el
+               próximo build lo pisa. -->
+          <!-- NOVEDADES-PREVIEW:START -->
+          <a class="news-card" href="novedades.html#celebramos-los-90-anos-de-laura-devetach" data-animate>
             <div class="news-card-media">
-              <img src="assets/img/novedad-biblioteca-feria.jpg" alt="Flyer de Biblioteca de feria: dos nenas leen libros ilustrados de animales tiradas en el piso de la biblioteca de CEDILIJ" width="640" height="800" loading="lazy">
-            </div>
-            <div class="news-card-body">
-              <span class="news-tag news-tag--actividad">Actividad</span>
-              <span class="news-date">18 de julio de 2026</span>
-              <h3>Biblioteca de feria</h3>
-              <p>Una tarde de vacaciones al abrigo de lecturas, escrituras y renovación de préstamos.</p>
-            </div>
-          </a>
-          <a class="news-card" href="novedades.html#celebramos-devetach-90" data-animate>
-            <div class="news-card-media">
-              <img src="assets/img/novedad-devetach.jpg" alt="Flyer Celebramos Devetach 90: ilustración de un macetero con libros abiertos como flores, junto a los logos de las instituciones organizadoras" width="640" height="854" loading="lazy">
+              <img src="assets/img/novedad-celebramos-los-90-anos-de-laura-devetach.webp" alt="La imagen es un flyer de la convocatoria." loading="lazy">
             </div>
             <div class="news-card-body">
               <span class="news-tag news-tag--noticia">Noticia</span>
+              <span class="news-date">16 de julio de 2026</span>
+              <h3>Celebramos los 90 años de Laura Devetach</h3>
+              <p>La convocatoria invita a escuelas, centros culturales, bibliotecas, etc. a organizar actividades.</p>
+            </div>
+          </a>
+          <a class="news-card" href="novedades.html#biblioteca-de-feria" data-animate>
+            <div class="news-card-media">
+              <img src="assets/img/novedad-biblioteca-de-feria.webp" alt="En la imagen hay una foto desde arriba de una niña leyendo libros acostada en el piso de la biblioteca." loading="lazy">
+            </div>
+            <div class="news-card-body">
+              <span class="news-tag news-tag--actividad">Actividad</span>
               <span class="news-date">15 de julio de 2026</span>
-              <h3>Convocatoria abierta: Celebramos Devetach 90</h3>
-              <p>Homenaje institucional a Laura Devetach por sus 90 años. Inscribí tu actividad hasta el 1° de septiembre.</p>
+              <h3>Biblioteca de feria</h3>
+              <p>Cada quince días, la biblioteca abre también los sábados. ¡Acercate!</p>
             </div>
           </a>
           <a class="news-card" href="novedades.html#cuentos-con-bufanda" data-animate>
             <div class="news-card-media">
-              <img src="assets/img/novedad-cuentos-bufanda.jpg" alt="Flyer de Cuentos con bufanda: ilustración de una narradora abrazando a un nene junto a una canasta de lana, con el texto Narraciones de Vivi Aguirre" width="640" height="800" loading="lazy">
+              <img src="assets/img/novedad-cuentos-con-bufanda.webp" alt="En la imagen se ve una ilustración de Mariana Ruiz Johnson de una mujer poniéndole una bufanda roja a un niño." loading="lazy">
             </div>
             <div class="news-card-body">
               <span class="news-tag news-tag--actividad">Actividad</span>
-              <span class="news-date">14 de julio de 2026</span>
+              <span class="news-date">9 de julio de 2026</span>
               <h3>Cuentos con bufanda</h3>
-              <p>Ronda de cuentos tejidos con las narraciones de Vivi Aguirre. Actividad a la gorra.</p>
+              <p>Les esperamos en la Biblioteca de cedilij para una ronda de cuentos con Vivi Aguirre</p>
             </div>
           </a>
+          <!-- NOVEDADES-PREVIEW:END -->
         </div>
         <div style="margin-top: var(--space-5); text-align:center;">
           <a class="btn btn-primary" href="novedades.html">Ver todas las novedades</a>

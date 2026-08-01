@@ -1275,6 +1275,17 @@ main > section:last-of-type {
   }
 }
 
+/* Envuelve todos los pares año + post-list en una sola columna, para
+   que .novedades-layout quede en exactamente 2 hijos (esta y la
+   lateral) y el grid de 2 columnas no dependa de acomodar a mano
+   cuántos años/listas haya adentro. */
+.novedades-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
 .novedades-follow {
   background: var(--color-primary);
   color: #fff;
@@ -1436,7 +1447,6 @@ main > section:last-of-type {
    con el año. También es el destino de los links de "Navegá por año"
    de la barra lateral. */
 .post-year-marker {
-  grid-column: 1 / -1;
   font-family: "Baloo 2", var(--font-heading);
   font-weight: 700;
   font-size: 1.15rem;
