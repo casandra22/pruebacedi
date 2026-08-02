@@ -242,9 +242,6 @@ async function main() {
     }
 
     const imagenAlt = (obj.imagen_alt || "").trim();
-    if (imagenAlt.length > 100) {
-      console.warn(`Fila ${rowNum} ("${obj.titulo}"): imagen_alt tiene ${imagenAlt.length} caracteres (máximo recomendado: 100). Se publica igual, pero conviene acortarla.`);
-    }
 
     const { y, mo, d } = fechaParsed;
     const sortKey = `${String(y).padStart(4, "0")}-${String(mo).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
