@@ -241,6 +241,11 @@ async function main() {
       tipo = "actividad";
     }
 
+    const imagenAlt = (obj.imagen_alt || "").trim();
+    if (imagenAlt.length > 100) {
+      console.warn(`Fila ${rowNum} ("${obj.titulo}"): imagen_alt tiene ${imagenAlt.length} caracteres (máximo recomendado: 100). Se publica igual, pero conviene acortarla.`);
+    }
+
     const { y, mo, d } = fechaParsed;
     const sortKey = `${String(y).padStart(4, "0")}-${String(mo).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
     const fechaDisplay = `${d} de ${MESES[mo - 1]} de ${y}`;
@@ -254,7 +259,7 @@ async function main() {
       sortKey,
       fechaDisplay,
       imagen_link: (obj.imagen_link || "").trim(),
-      imagen_alt: (obj.imagen_alt || "").trim(),
+      imagen_alt: imagenAlt,
       link_texto: (obj.link_texto || "").trim(),
       link_url: (obj.link_url || "").trim(),
     });
