@@ -48,7 +48,7 @@
   /* Tipografía — Poppins para títulos (gratuita, la misma que usa
      tekmaneducation.com como referencia), Inter para texto de cuerpo. */
   --font-heading: "Poppins", "Segoe UI", system-ui, sans-serif;
-  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-body: "GeoSlab703", "Inter", "Segoe UI", system-ui, sans-serif;
 
   /* Escala espacial */
   --space-1: 0.25rem;
@@ -71,11 +71,31 @@
   --wave-h: clamp(2.5rem, 6vw, 5rem);
 }
 
-/* Fuente tipo crayón para h1 (Crayon Libre, GGBotNet, dominio público
-   CC0), autohospedada en assets/fonts/ — no está en Google Fonts. */
+/* Daisy Wheel: la fuente real del isotipo "cedilij" (ya no una
+   aproximación), autohospedada en assets/fonts/. */
 @font-face {
-  font-family: "Crayon Libre";
-  src: url("../fonts/CrayonLibre-Regular.ttf") format("truetype");
+  font-family: "Daisy Wheel";
+  src: url("../fonts/DaisyWheel.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* GeoSlab703: fuente de los textos chicos (cuerpo, footer, nav, botones),
+   autohospedada en assets/fonts/. Baloo 2 sigue en uso en
+   .post-year-marker (Novedades), eso no cambia. */
+@font-face {
+  font-family: "GeoSlab703";
+  src: url("../fonts/GeoSlab703-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Flabby Bums: fuente manuscrita para h1, autohospedada en assets/fonts/. */
+@font-face {
+  font-family: "Flabby Bums";
+  src: url("../fonts/FlabbyBums-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -137,14 +157,14 @@ h4 {
 }
 
 h1 {
-  font-family: "Crayon Libre", var(--font-heading);
+  font-family: "Flabby Bums", var(--font-heading);
   font-weight: 800;
   line-height: 1.15;
   font-size: clamp(2.1rem, 4vw + 1rem, 3.2rem);
 }
 
 h2 {
-  font-family: "Baloo 2", var(--font-heading);
+  font-family: "Daisy Wheel", var(--font-heading);
   font-weight: 700;
 }
 
@@ -153,6 +173,7 @@ h2 {
 }
 
 h3 {
+  font-family: "Daisy Wheel", var(--font-heading);
   font-size: 1.3rem;
 }
 
@@ -364,13 +385,12 @@ main > section:last-of-type {
   text-decoration: none;
 }
 
-/* Isotipo tipográfico real de marca: "cedilij" en minúscula, con la
-   fuente redondeada que usan en sus piezas gráficas (Fredoka, mejor
-   candidata gratuita — no está confirmado que sea la fuente exacta). */
+/* Isotipo tipográfico real de marca: "cedilij" en minúscula, con Daisy
+   Wheel, la fuente real que usan en sus piezas gráficas. */
 .brand-text strong {
-  font-family: "Fredoka", var(--font-heading);
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-family: "Daisy Wheel", var(--font-heading);
+  font-weight: normal;
+  letter-spacing: -0.03em;
   color: var(--color-primary);
 }
 
@@ -412,7 +432,7 @@ main > section:last-of-type {
 
 .brand strong {
   display: block;
-  font-size: 1.75rem;
+  font-size: 2rem;
   line-height: 1.1;
 }
 
@@ -454,6 +474,7 @@ main > section:last-of-type {
 .nav-menu a {
   text-decoration: none;
   color: var(--color-ink);
+  font-family: var(--font-heading);
   font-weight: 600;
   padding: var(--space-2) var(--space-1);
   border-bottom: 3px solid transparent;
@@ -627,6 +648,13 @@ main > section:last-of-type {
 
   .nav-menu .nav-submenu a {
     padding: var(--space-2) var(--space-1);
+    color: var(--color-ink);
+  }
+
+  /* Excepción: con el menú mobile abierto y el header todavía
+     transparente sobre el hero azul de Inicio (antes de scrollear),
+     el fondo detrás del submenú es el azul del hero, no el crema. */
+  .site-header.hero-transparent .nav-menu .nav-submenu a {
     color: #fff;
   }
 
@@ -948,6 +976,49 @@ main > section:last-of-type {
 @media (min-width: 40rem) {
   .card-grid--pair {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Variante "pilares" (Inicio): la tarjeta destacada (.card--featured)
+   va primero y ocupa todo el ancho en pantallas chicas/medianas, con
+   las otras dos en dos columnas debajo; en desktop pasa al centro de
+   una fila de 3, más grande que las otras. Si la pantalla es muy
+   angosta, las tres quedan apiladas del mismo tamaño (orden natural
+   del HTML), para no perder legibilidad. */
+.card-grid--pillars {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 30rem) {
+  .card-grid--pillars {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .card-grid--pillars .card--featured {
+    grid-column: 1 / -1;
+    padding: var(--space-5);
+  }
+}
+
+@media (min-width: 64rem) {
+  .card-grid--pillars {
+    grid-template-columns: 1fr 1.1fr 1fr;
+    align-items: end;
+  }
+
+  .card-grid--pillars .card--featured {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .card-grid--pillars .card:nth-child(2) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .card-grid--pillars .card:nth-child(3) {
+    grid-column: 3;
+    grid-row: 1;
   }
 }
 
@@ -1603,14 +1674,38 @@ main > section:last-of-type {
 }
 
 /* Garabato punteado de fondo, inspirado en las líneas sueltas de
-   tekmaneducation.com — puramente decorativo, detrás del texto. */
+   tekmaneducation.com — puramente decorativo, detrás del texto. Dos
+   trazos distintos, uno por layout (se muestran/ocultan por media
+   query, igual que el ancla del pájaro más abajo): en mobile termina
+   en la esquina inferior derecha (800,400), donde el pájaro queda más
+   grande y contenido adentro de la caja; en desktop termina a mitad
+   de altura del borde derecho (800,200), donde el pájaro flota mitad
+   afuera. preserveAspectRatio="none" para que el trazo llene la caja
+   completa sin recortes. Ambos path salen del viewBox (coordenadas
+   negativas o mayores a 800/400) a propósito, con curvas y cruces —
+   overflow: visible para que esas partes no se corten. */
 .whatsapp-cta-line {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  overflow: visible;
   z-index: 0;
   opacity: 0.6;
+}
+
+.whatsapp-cta-line--desktop {
+  display: none;
+}
+
+@media (min-width: 60rem) {
+  .whatsapp-cta-line--mobile {
+    display: none;
+  }
+
+  .whatsapp-cta-line--desktop {
+    display: block;
+  }
 }
 
 .whatsapp-cta-links {
@@ -1636,25 +1731,24 @@ main > section:last-of-type {
   outline-color: #fff;
 }
 
-/* Pájaro decorativo, espejado para que mire hacia el texto. "Flota"
-   suavemente (--bird-rest-y parametriza el punto de reposo para que
-   la misma animación sirva en los dos layouts); ya existe una regla
-   global que desactiva animaciones con prefers-reduced-motion.
-   En mobile el texto ocupa casi todo el ancho de la caja, así que el
-   pájaro va arriba a la derecha (no hay lugar al costado sin tapar
-   texto); desde donde ya sobra espacio al costado del texto centrado,
-   pasa a estar centrado verticalmente sobre el borde derecho, como el
-   cohete de tekman. */
+/* Pájaro decorativo, espejado para que mire hacia el texto, anclado
+   al mismo punto donde termina el garabato punteado (ver arriba): en
+   mobile, esquina inferior derecha, contenido adentro de la caja y
+   más grande que antes; en desktop, borde derecho a mitad de altura,
+   flotando mitad afuera. --bird-x/--bird-y controlan cuánto se corre
+   el pájaro desde el punto de anclaje (left/top). "Flota" suavemente;
+   ya existe una regla global que desactiva animaciones con
+   prefers-reduced-motion. */
 .whatsapp-cta-bird {
   position: absolute;
-  top: -1.25rem;
-  right: -0.75rem;
-  --bird-rest-y: 0px;
-  translate: 0 var(--bird-rest-y);
-  width: 9rem;
+  left: 100%;
+  top: 100%;
+  --bird-x: -78%;
+  --bird-y: -78%;
+  translate: var(--bird-x) var(--bird-y);
+  width: 10rem;
   height: auto;
-  transform: scaleX(-1);
-  rotate: 10deg;
+  transform: scaleX(-1) rotate(10deg);
   pointer-events: none;
   animation: whatsapp-cta-float 3.5s ease-in-out infinite;
 }
@@ -1662,26 +1756,25 @@ main > section:last-of-type {
 @media (min-width: 60rem) {
   .whatsapp-cta-bird {
     top: 50%;
-    right: -1rem;
-    --bird-rest-y: -50%;
-    width: 11rem;
+    --bird-x: -50%;
+    --bird-y: -50%;
+    width: 10.5rem;
   }
 }
 
 @media (min-width: 80rem) {
   .whatsapp-cta-bird {
-    right: -2.5rem;
-    width: 13rem;
+    width: 12.5rem;
   }
 }
 
 @keyframes whatsapp-cta-float {
   0%,
   100% {
-    translate: 0 var(--bird-rest-y);
+    translate: var(--bird-x) var(--bird-y);
   }
   50% {
-    translate: 0 calc(var(--bird-rest-y) - 10px);
+    translate: var(--bird-x) calc(var(--bird-y) - 10px);
   }
 }
 
@@ -2024,10 +2117,10 @@ main > section:last-of-type {
 }
 
 .footer-brand-name {
-  font-family: "Fredoka", var(--font-heading);
-  font-weight: 600;
-  font-size: 1.15rem;
-  letter-spacing: 0.04em;
+  font-family: "Daisy Wheel", var(--font-heading);
+  font-weight: normal;
+  font-size: 1.3rem;
+  letter-spacing: -0.03em;
 }
 
 .footer-grid a {

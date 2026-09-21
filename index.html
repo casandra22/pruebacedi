@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="assets/img/logo-cedilij-favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -97,22 +97,29 @@
       <div class="container">
         <div class="section-head" data-animate>
           <span class="eyebrow">La organización</span>
-          <h2>Nuestra misión y visión</h2>
+          <h2>Nuestros tres pilares</h2>
         </div>
-        <div class="card-grid">
-          <article class="card" data-animate>
+        <div class="card-grid card-grid--pillars">
+          <article class="card card--featured" data-animate>
             <div class="card-icon" aria-hidden="true">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.5l-2 5-5 2 2-5z"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H12v16H5.5c-.8 0-1.5-.7-1.5-1.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H12v16h6.5c.8 0 1.5-.7 1.5-1.5z"/></svg>
             </div>
-            <h3>Misión</h3>
-            <p>Promover la formación de infancias y jóvenes lectores desde la literatura, haciendo realidad en cada persona el derecho a la lectura y a la cultura en todas sus representaciones.</p>
+            <h3>Biblioteca especializada en literatura infantil y juvenil</h3>
+            <p>Nuestro corazón: consulta de esatantería y asesoramiento gratuitos, abiertos a toda la comunidad.</p>
           </article>
           <article class="card" data-animate>
             <div class="card-icon" aria-hidden="true">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 9c1.7 0 3-1.3 3-3s-1.3-3-3-3"/><path d="M21 20c0-2.8-2-5.1-4.7-5.8"/></svg>
             </div>
-            <h3>Visión</h3>
-            <p>Ser un referente regional en literatura infantil y juvenil, reconocido por su compromiso con el derecho a leer de las infancias y juventudes.[Revisar]</p>
+            <h3>Formación de mediadores</h3>
+            <p>Capacitación para docentes, bibliotecaries y todas las personas que acercan libros a las infancias.</p>
+          </article>
+          <article class="card" data-animate>
+            <div class="card-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11v2a2 2 0 0 0 2 2h1l4 4V5L6 9H5a2 2 0 0 0-2 2z"/><path d="M16 8a5 5 0 0 1 0 8"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>
+            </div>
+            <h3>Promoción de la lectura</h3>
+            <p>Talleres, visitas de escuelas y actividades de extensión cultural.</p>
           </article>
         </div>
       </div>
@@ -178,8 +185,11 @@
     <section>
       <div class="container">
         <div class="whatsapp-cta" data-animate>
-          <svg class="whatsapp-cta-line" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <path d="M40,80 C180,-10 260,190 420,130 S620,20 700,150 S740,260 730,290" fill="none" stroke="var(--color-gold)" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 11"/>
+          <svg class="whatsapp-cta-line whatsapp-cta-line--mobile" viewBox="0 0 800 400" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M-40,140 C60,20 160,260 300,140 C400,60 340,300 480,260 C600,230 560,340 680,360 S760,380 800,400" fill="none" stroke="var(--color-gold)" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 11"/>
+          </svg>
+          <svg class="whatsapp-cta-line whatsapp-cta-line--desktop" viewBox="0 0 800 400" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M-40,180 C40,60 120,320 260,180 C360,80 300,-40 460,40 C600,110 480,260 620,220 C760,180 700,60 800,200" fill="none" stroke="var(--color-gold)" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 11"/>
           </svg>
           <img class="whatsapp-cta-bird" src="assets/img/logo-cedilij-gold.png" alt="" width="69" height="50" aria-hidden="true">
           <h2>¿Querés enterarte de todas nuestras novedades?</h2>
