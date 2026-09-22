@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Biblioteca — CEDILIJ</title>
   <meta name="description" content="Horarios, servicios de préstamo y forma de asociarte a la biblioteca de CEDILIJ, especializada en literatura infantil y juvenil.">
+  <link rel="canonical" href="https://cedilij.com.ar/biblioteca.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CEDILIJ">
+  <meta property="og:locale" content="es_AR">
+  <meta property="og:url" content="https://cedilij.com.ar/biblioteca.html">
+  <meta property="og:title" content="Biblioteca — CEDILIJ">
+  <meta property="og:description" content="Horarios, servicios de préstamo y forma de asociarte a la biblioteca de CEDILIJ, especializada en literatura infantil y juvenil.">
+  <meta property="og:image" content="https://cedilij.com.ar/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Biblioteca — CEDILIJ">
+  <meta name="twitter:description" content="Horarios, servicios de préstamo y forma de asociarte a la biblioteca de CEDILIJ, especializada en literatura infantil y juvenil.">
+  <meta name="twitter:image" content="https://cedilij.com.ar/assets/img/og-image.jpg">
   <link rel="icon" type="image/png" href="assets/img/logo-cedilij-favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,8 +69,18 @@
             <li><a href="articulos-academicos.html">Artículos académicos</a></li>
           </ul>
         </div>
-        <a href="biblioteca.html" aria-current="page">Biblioteca</a>
-        <a href="https://cedilij.puntobiblio.com/" class="nav-catalog-btn" target="_blank" rel="noopener noreferrer">Catálogo<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+        <div class="nav-dropdown is-active">
+          <a href="biblioteca.html" class="nav-dropdown-link">Biblioteca</a>
+          <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-controls="nav-submenu-biblioteca" aria-label="Mostrar submenú de Biblioteca">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <ul class="nav-submenu" id="nav-submenu-biblioteca">
+            <li><a href="biblioteca.html#servicios-bibliotecarios" aria-current="page">Servicios bibliotecarios</a></li>
+            <li><a href="biblioteca.html#asociate">Asociate</a></li>
+            <li><a href="https://cedilij.puntobiblio.com/" target="_blank" rel="noopener noreferrer" class="nav-submenu-external">Catálogo<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg><span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></li>
+          </ul>
+        </div>
+        <a href="contacto.html" class="nav-catalog-btn">Contacto</a>
       </nav>
     </div>
   </header>
@@ -68,7 +94,7 @@
       </div>
     </section>
 
-    <section>
+    <section id="servicios-bibliotecarios">
       <div class="container">
         <div class="section-head" data-animate>
           <span class="eyebrow">Servicios bibliotecarios</span>
@@ -94,7 +120,7 @@
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v16M16 4v16"/></svg>
             </div>
             <h3>Catálogo online</h3>
-            <p>Consultá todo el material disponible en nuestro catálogo en línea.</p>
+            <p>Consultá todo el material disponible en nuestro catálogo en línea. Literatura para infancias y adolescencias, y revistas y teoría relacionada.</p>
             <a href="https://cedilij.puntobiblio.com/" target="_blank" rel="noopener noreferrer">Ir al catálogo →<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
           </article>
           <article class="card" data-animate>
@@ -108,52 +134,77 @@
       </div>
     </section>
 
-    <section class="section-alt">
+    <section class="section-alt" id="asociate">
       <div class="container">
         <div class="section-head" data-animate>
           <span class="eyebrow">Asociate</span>
           <h2>Cómo asociarse</h2>
         </div>
-        <ul class="info-list info-list--stacked">
-          <li data-animate>
-            <div>
-              <strong>Horarios de atención</strong>
-              <span>Martes y jueves, de 9:30 a 12:30 h y de 14:30 a 17:30 h. Sábados (cada 15 días), de 16:30 a 19:30 h.</span>
+        <ul class="faq-zigzag">
+          <li class="faq-item" data-animate>
+            <span class="faq-mark" aria-hidden="true">1</span>
+            <div class="faq-body">
+              <h3>¿Dónde y cuándo?</h3>
+              <p>En Pasaje Revol 56, B.º Güemes, Córdoba. Martes y jueves, de 9:30 a 12:30 h y de 14:30 a 17:30 h. Sábados (cada 15 días), de 16:30 a 19:30 h.</p>
             </div>
           </li>
-          <li data-animate>
-            <div>
-              <strong>Documentación a presentar</strong>
-              <span>Fotocopia del DNI (1.ª y 2.ª hoja), fotocopia de un impuesto o servicio para corroborar el domicilio (el apellido o la dirección deben coincidir con el DNI) y dos fotos carnet (no obligatorio). <strong>Atención:</strong> <em>no es obligatorio imprimir la fotocopia de DNI o impuesto. Estos pueden enviarse al <a href="https://wa.me/5493518175972" target="_blank" rel="noopener noreferrer">WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a> del CEDILIJ.</em></span>
+          <li class="faq-item faq-item--icon" data-animate>
+            <span class="faq-mark" aria-hidden="true">2</span>
+            <div class="faq-body">
+              <h3>¿Qué documentación presento?</h3>
+              <p>Fotocopia del DNI (1.ª y 2.ª hoja), fotocopia de un impuesto o servicio para corroborar el domicilio (el apellido o la dirección deben coincidir con el DNI) y dos fotos carnet (no obligatorio). <br><br><strong>Atención:</strong> <em>no es obligatorio imprimir la fotocopia de DNI o impuesto. Estos pueden enviarse como archivo al <a href="https://wa.me/5493518175972" target="_blank" rel="noopener noreferrer">WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a> del CEDILIJ.</em></p>
             </div>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M6 8a1 1 0 0 1 1-1h6l4 4v9.5a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z" opacity="0.4"/>
+              <path d="M9 4h6l4 4v12a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1z"/>
+              <path d="M15 4v4h4"/>
+              <line x1="11.5" y1="12.5" x2="17" y2="12.5"/>
+              <line x1="11.5" y1="15.5" x2="17" y2="15.5"/>
+              <line x1="11.5" y1="18.5" x2="15" y2="18.5"/>
+            </svg>
           </li>
-          <li data-animate>
-            <div>
-              <strong>Tipos de asociación</strong>
-              <span><strong>Individual</strong> (hasta 3 libros en préstamo), <strong>familiar</strong> (hasta 10 libros) o <strong>institucional</strong> (hasta 20 libros).</span>
-            </div>
-          </li>
-          <li data-animate>
-            <div>
-              <strong>Aranceles</strong>
-              <span>La inscripción equivale a una cuota mensual + una cuota mensual individual o familiar por adelantado. Consultar monto actualizado al <a href="https://wa.me/5493518175972" target="_blank" rel="noopener noreferrer">WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a> o en la sede.</span>
-            </div>
-          </li>
-          <li data-animate>
-            <div>
-              <strong>Formas de pago</strong>
-              <span>En efectivo en la sede, o por transferencia bancaria: alias LEER.LIBRO.LINDO, CBU 0110127640012705300080 (Banco Nación, CEDILIJ). Luego de transferir, el comprobante se envía junto con los datos personales por <a href="https://wa.me/5493518175972" target="_blank" rel="noopener noreferrer">WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>.</span>
-            </div>
-          </li>
-          <li data-animate>
-            <div>
-              <strong>Responsabilidades de socie</strong>
-              <span>Al momento de asociarse, se hace responsable y se compromete a lo siguiente:</span>
+          <li class="faq-item" data-animate>
+            <span class="faq-mark" aria-hidden="true">3</span>
+            <div class="faq-body">
+              <h3>¿Qué tipos de asociación hay?</h3>
               <ul class="info-sublist">
-                <li>Cuidar el material que retira, evitando daño o mutilación.</li>
-                <li>En caso de pérdida o deterioro, le titular se compromete a reponer el material, o su equivalente, que será determinado por la institución.</li>
-                <li>Devolver en el plazo estipulado (15 días) o pedir renovarlo, si otra persona no lo ha reservado.</li>
-                <li>Mantener el pago de las cuotas mientras posea material en su poder.</li>
+                <li><strong>Individual</strong> (hasta 3 libros en préstamo)</li>
+                <li><strong>Familiar</strong> (hasta 10 libros)</li>
+                <li><strong>Institucional</strong> (hasta 20 libros)</li>
+              </ul>
+              <p>Consultá el monto actualizado de cada tipo de asociación al <a href="https://wa.me/5493518175972" target="_blank" rel="noopener noreferrer">WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>.</p>
+            </div>
+          </li>
+          <li class="faq-item" data-animate>
+            <span class="faq-mark" aria-hidden="true">4</span>
+            <div class="faq-body">
+              <h3>¿Cuánto cuesta?</h3>
+              <p>La inscripción equivale a dos cuotas mensuales por adelantado, las cuales cubrirán dos meses de asociación. Consultá el monto actualizado al <a href="https://wa.me/5493518175972" target="_blank" rel="noopener noreferrer">WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a> o en la sede. <br><br><strong>Importante:</strong> <em>solo se sigue pagando la cuota mientras tengas material en tu poder. Si no estás usando el servicio (no tenés libros retirados), no pagás nada.</em></p>
+            </div>
+          </li>
+          <li class="faq-item faq-item--icon" data-animate>
+            <span class="faq-mark" aria-hidden="true">5</span>
+            <div class="faq-body">
+              <h3>¿Cómo pago?</h3>
+              <p>En efectivo en la sede, o por transferencia bancaria: alias LEER.LIBRO.LINDO, CBU 0110127640012705300080 (Banco Nación, CEDILIJ). Luego de transferir, el comprobante se envía junto con los datos personales por <a href="https://wa.me/5493518175972" target="_blank" rel="noopener noreferrer">WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>.</p>
+            </div>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <rect x="2.5" y="6" width="19" height="13" rx="2"/>
+              <path d="M2.5 10h19"/>
+              <rect x="15.5" y="11" width="6" height="4.5" rx="1"/>
+              <circle cx="18" cy="13.25" r="0.6" fill="currentColor" stroke="none"/>
+            </svg>
+          </li>
+          <li class="faq-item" data-animate>
+            <span class="faq-mark" aria-hidden="true">6</span>
+            <div class="faq-body">
+              <h3>¿A qué me comprometo?</h3>
+              <p>Al asociarte, te hacés responsable y te comprometés a:</p>
+              <ul class="info-sublist">
+                <li>Cuidar el material que retirás, evitando daño o mutilación.</li>
+                <li>En caso de pérdida o deterioro, reponer el material, o su equivalente determinado por la organización.</li>
+                <li>Devolver en el plazo estipulado (15 días) o pedir renovarlo, si otra persona no lo reservó.</li>
+                <li>Mantener el pago de las cuotas mientras tengas material en tu poder.</li>
               </ul>
             </div>
           </li>
@@ -202,14 +253,15 @@
             <li><a href="novedades.html">Novedades</a></li>
             <li><a href="servicios.html">Servicios</a></li>
             <li><a href="investigacion.html">Investigación</a></li>
-            <li><a href="biblioteca.html">Biblioteca</a></li>
+            <li><a href="biblioteca.html" aria-current="page">Biblioteca</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
           </ul>
         </div>
         <div>
           <h3>Dirección</h3>
           <p>Pasaje Revol 56, B.º Güemes, Córdoba</p>
           <div class="footer-map">
-            <iframe class="footer-map-embed" src="https://maps.google.com/maps?q=-31.42356,-64.192441&z=17&output=embed" title="Mapa: CEDILIJ, Pasaje Revol 56, Barrio Güemes, Córdoba" loading="lazy"></iframe>
+            <iframe class="footer-map-embed" src="https://maps.google.com/maps?q=Cedilij,+Pasaje+Revol+56,+C%C3%B3rdoba&z=17&output=embed" title="Mapa: CEDILIJ, Pasaje Revol 56, Barrio Güemes, Córdoba" loading="lazy"></iframe>
           </div>
           <a class="footer-map-link" href="https://maps.app.goo.gl/PSmqAt9gFaP3ftS48" target="_blank" rel="noopener noreferrer">Ver mapa más grande<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
         </div>

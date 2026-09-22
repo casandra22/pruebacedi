@@ -5,11 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CEDILIJ: Centro de Difusión e Investigación de Literatura Infantil y Juvenil</title>
   <meta name="description" content="CEDILIJ es una organización que promueve, investiga y difunde la literatura infantil y juvenil desde Córdoba, Argentina, con talleres y actividades varias y una biblioteca y sala de lectura abiertas a toda la comunidad.">
+  <link rel="canonical" href="https://cedilij.com.ar/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CEDILIJ">
+  <meta property="og:locale" content="es_AR">
+  <meta property="og:url" content="https://cedilij.com.ar/">
+  <meta property="og:title" content="CEDILIJ: Centro de Difusión e Investigación de Literatura Infantil y Juvenil">
+  <meta property="og:description" content="CEDILIJ es una organización que promueve, investiga y difunde la literatura infantil y juvenil desde Córdoba, Argentina, con talleres y actividades varias y una biblioteca y sala de lectura abiertas a toda la comunidad.">
+  <meta property="og:image" content="https://cedilij.com.ar/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CEDILIJ: Centro de Difusión e Investigación de Literatura Infantil y Juvenil">
+  <meta name="twitter:description" content="CEDILIJ es una organización que promueve, investiga y difunde la literatura infantil y juvenil desde Córdoba, Argentina, con talleres y actividades varias y una biblioteca y sala de lectura abiertas a toda la comunidad.">
+  <meta name="twitter:image" content="https://cedilij.com.ar/assets/img/og-image.jpg">
   <link rel="icon" type="image/png" href="assets/img/logo-cedilij-favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Library",
+    "name": "CEDILIJ",
+    "alternateName": "Centro de Difusión e Investigación de Literatura Infantil y Juvenil",
+    "description": "CEDILIJ es una organización que promueve, investiga y difunde la literatura infantil y juvenil desde Córdoba, Argentina, con talleres y actividades varias y una biblioteca y sala de lectura abiertas a toda la comunidad.",
+    "url": "https://cedilij.com.ar/",
+    "logo": "https://cedilij.com.ar/assets/img/logo-cedilij.png",
+    "image": "https://cedilij.com.ar/assets/img/og-image.jpg",
+    "email": "cedilijargentina@gmail.com",
+    "telephone": "+5493518175972",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Pasaje Revol 56, B.º Güemes",
+      "addressLocality": "Córdoba",
+      "addressRegion": "Córdoba",
+      "addressCountry": "AR"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Tuesday", "Thursday"],
+        "opens": "09:30",
+        "closes": "12:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Tuesday", "Thursday"],
+        "opens": "14:30",
+        "closes": "17:30"
+      }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/cedilij/",
+      "https://www.facebook.com/cedilij/"
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
@@ -56,8 +112,18 @@
             <li><a href="articulos-academicos.html">Artículos académicos</a></li>
           </ul>
         </div>
-        <a href="biblioteca.html">Biblioteca</a>
-        <a href="https://cedilij.puntobiblio.com/" class="nav-catalog-btn" target="_blank" rel="noopener noreferrer">Catálogo<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+        <div class="nav-dropdown">
+          <a href="biblioteca.html" class="nav-dropdown-link">Biblioteca</a>
+          <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-controls="nav-submenu-biblioteca" aria-label="Mostrar submenú de Biblioteca">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <ul class="nav-submenu" id="nav-submenu-biblioteca">
+            <li><a href="biblioteca.html#servicios-bibliotecarios">Servicios bibliotecarios</a></li>
+            <li><a href="biblioteca.html#asociate">Asociate</a></li>
+            <li><a href="https://cedilij.puntobiblio.com/" target="_blank" rel="noopener noreferrer" class="nav-submenu-external">Catálogo<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg><span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></li>
+          </ul>
+        </div>
+        <a href="contacto.html" class="nav-catalog-btn">Contacto</a>
       </nav>
     </div>
   </header>
@@ -215,19 +281,20 @@
         <div>
           <h3>Navegación</h3>
           <ul>
-            <li><a href="index.html">Inicio</a></li>
+            <li><a href="index.html" aria-current="page">Inicio</a></li>
             <li><a href="quienes-somos.html">Quiénes somos</a></li>
+            <li><a href="novedades.html">Novedades</a></li>
             <li><a href="servicios.html">Servicios</a></li>
             <li><a href="investigacion.html">Investigación</a></li>
             <li><a href="biblioteca.html">Biblioteca</a></li>
-            <li><a href="novedades.html">Novedades</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
           </ul>
         </div>
         <div>
           <h3>Dirección</h3>
           <p>Pasaje Revol 56, B.º Güemes, Córdoba</p>
           <div class="footer-map">
-            <iframe class="footer-map-embed" src="https://maps.google.com/maps?q=-31.42356,-64.192441&z=17&output=embed" title="Mapa: CEDILIJ, Pasaje Revol 56, Barrio Güemes, Córdoba" loading="lazy"></iframe>
+            <iframe class="footer-map-embed" src="https://maps.google.com/maps?q=Cedilij,+Pasaje+Revol+56,+C%C3%B3rdoba&z=17&output=embed" title="Mapa: CEDILIJ, Pasaje Revol 56, Barrio Güemes, Córdoba" loading="lazy"></iframe>
           </div>
           <a class="footer-map-link" href="https://maps.app.goo.gl/PSmqAt9gFaP3ftS48" target="_blank" rel="noopener noreferrer">Ver mapa más grande<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
         </div>

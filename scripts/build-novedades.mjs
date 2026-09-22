@@ -243,6 +243,12 @@ async function main() {
 
     const imagenAlt = (obj.imagen_alt || "").trim();
 
+    let linkUrl = (obj.link_url || "").trim();
+    if (linkUrl && !/^https?:\/\//i.test(linkUrl)) {
+      console.warn(`Fila ${rowNum} ("${obj.titulo}"): link_url "${linkUrl}" no empieza con http:// o https://, se publica sin ese link (evita que alguien meta un link tipo "javascript:" por error o a propósito).`);
+      linkUrl = "";
+    }
+
     const { y, mo, d } = fechaParsed;
     const sortKey = `${String(y).padStart(4, "0")}-${String(mo).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
     const fechaDisplay = `${d} de ${MESES[mo - 1]} de ${y}`;
@@ -258,7 +264,7 @@ async function main() {
       imagen_link: (obj.imagen_link || "").trim(),
       imagen_alt: imagenAlt,
       link_texto: (obj.link_texto || "").trim(),
-      link_url: (obj.link_url || "").trim(),
+      link_url: linkUrl,
     });
   }
 

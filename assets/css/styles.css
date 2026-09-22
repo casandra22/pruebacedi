@@ -204,6 +204,14 @@ p {
   scroll-margin-top: calc(var(--header-h, 5rem) + 1rem);
 }
 
+/* Destinos reales de links con ancla (submenú de Biblioteca) — mismo
+   criterio que arriba, para que el header sticky no los tape al
+   saltar. */
+#servicios-bibliotecarios,
+#asociate {
+  scroll-margin-top: calc(var(--header-h, 5rem) + var(--space-4));
+}
+
 /* En secciones de fondo oscuro (azul) el teal pierde contraste contra
    el fondo (¡el teal y el azul tienen casi la misma luminosidad!,
    ratio ~1.2:1 — muy por debajo del 3:1 que pide WCAG 1.4.11): se
@@ -563,6 +571,20 @@ main > section:last-of-type {
   white-space: nowrap;
 }
 
+/* Ítem de submenú que sale del sitio (Catálogo, dentro de Biblioteca):
+   ícono de link externo al lado del texto, para que se note antes de
+   hacer clic que no te quedás navegando adentro de CEDILIJ. */
+.nav-menu .nav-submenu a.nav-submenu-external {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.nav-submenu-external svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
 .nav-menu .nav-submenu a:hover,
 .nav-menu .nav-submenu a:focus-visible {
   color: var(--color-primary);
@@ -603,8 +625,11 @@ main > section:last-of-type {
     border-bottom: 1px solid var(--color-border);
   }
 
-  /* Que no quede línea divisoria pegada arriba del botón Catálogo */
-  .nav-menu a:has(+ .nav-catalog-btn) {
+  /* Que no quede línea divisoria pegada arriba del botón Contacto
+     (Biblioteca, el ítem anterior, ahora es un dropdown, no un link
+     suelto — por eso el selector apunta a .nav-dropdown). */
+  .nav-menu a:has(+ .nav-catalog-btn),
+  .nav-menu .nav-dropdown:has(+ .nav-catalog-btn) {
     border-bottom: none;
   }
 
@@ -1717,6 +1742,22 @@ main > section:last-of-type {
   gap: var(--space-3);
 }
 
+/* Métodos de contacto (página Contacto): uno debajo del otro, alineados
+   a la izquierda, con ícono — a diferencia de .whatsapp-cta-links
+   (fila centrada, sin ícono) que usa Inicio. */
+.contact-methods {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.contact-methods .btn svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex-shrink: 0;
+}
+
 .whatsapp-cta .btn-primary {
   background: var(--color-surface);
   color: var(--color-accent-dark);
@@ -1786,35 +1827,41 @@ main > section:last-of-type {
 .card-grid > [data-animate]:nth-child(1),
 .news-grid > [data-animate]:nth-child(1),
 .info-list > [data-animate]:nth-child(1),
+.faq-zigzag > [data-animate]:nth-child(1),
 .service-accordion > [data-animate]:nth-child(1) {
   transition-delay: 0ms;
 }
 .card-grid > [data-animate]:nth-child(2),
 .news-grid > [data-animate]:nth-child(2),
 .info-list > [data-animate]:nth-child(2),
+.faq-zigzag > [data-animate]:nth-child(2),
 .service-accordion > [data-animate]:nth-child(2) {
   transition-delay: 90ms;
 }
 .card-grid > [data-animate]:nth-child(3),
 .news-grid > [data-animate]:nth-child(3),
 .info-list > [data-animate]:nth-child(3),
+.faq-zigzag > [data-animate]:nth-child(3),
 .service-accordion > [data-animate]:nth-child(3) {
   transition-delay: 180ms;
 }
 .card-grid > [data-animate]:nth-child(4),
 .news-grid > [data-animate]:nth-child(4),
 .info-list > [data-animate]:nth-child(4),
+.faq-zigzag > [data-animate]:nth-child(4),
 .service-accordion > [data-animate]:nth-child(4) {
   transition-delay: 270ms;
 }
 .card-grid > [data-animate]:nth-child(5),
 .news-grid > [data-animate]:nth-child(5),
 .info-list > [data-animate]:nth-child(5),
+.faq-zigzag > [data-animate]:nth-child(5),
 .service-accordion > [data-animate]:nth-child(5) {
   transition-delay: 360ms;
 }
 .card-grid > [data-animate]:nth-child(6),
 .info-list > [data-animate]:nth-child(6),
+.faq-zigzag > [data-animate]:nth-child(6),
 .service-accordion > [data-animate]:nth-child(6) {
   transition-delay: 450ms;
 }
@@ -1844,6 +1891,88 @@ main > section:last-of-type {
   padding-left: 1.2rem;
   display: grid;
   gap: var(--space-1);
+}
+
+/* ---------- Preguntas en zigzag (Cómo asociarse) ----------
+   Cada pregunta se ancla a la izquierda o a la derecha del contenedor
+   (alternado por posición, no por texto centrado ni justificado, para
+   no perder legibilidad en párrafos largos) con una marca circular de
+   color rotativo (mismo ciclo que .card-grid). En mobile se pierde el
+   zigzag: todo a ancho completo y alineado a la izquierda, más fácil
+   de leer en una pantalla angosta. */
+.faq-zigzag {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.faq-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  max-width: 38rem;
+}
+
+.faq-item:nth-child(even) {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.faq-mark {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Baloo 2", var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.faq-zigzag > .faq-item:nth-child(3n + 2) .faq-mark {
+  background: var(--color-accent-dark);
+}
+
+.faq-zigzag > .faq-item:nth-child(3n + 3) .faq-mark {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+.faq-item h3 {
+  margin-bottom: var(--space-1);
+}
+
+.faq-item p {
+  margin: 0;
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  align-self: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  color: var(--color-primary);
+}
+
+@media (max-width: 47.9375rem) {
+  .faq-item,
+  .faq-item:nth-child(even) {
+    align-self: stretch;
+    max-width: none;
+    flex-direction: row;
+  }
+
+  .faq-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
 }
 
 .distincion-thumb {
