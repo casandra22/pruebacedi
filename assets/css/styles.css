@@ -1004,47 +1004,171 @@ main > section:last-of-type {
   }
 }
 
-/* Variante "pilares" (Inicio): la tarjeta destacada (.card--featured)
-   va primero y ocupa todo el ancho en pantallas chicas/medianas, con
-   las otras dos en dos columnas debajo; en desktop pasa al centro de
-   una fila de 3, más grande que las otras. Si la pantalla es muy
-   angosta, las tres quedan apiladas del mismo tamaño (orden natural
-   del HTML), para no perder legibilidad. */
-.card-grid--pillars {
+/* ---------- Tres pilares (Inicio) ----------
+   Con foto real arriba y franja de color sólido abajo, no la ficha
+   genérica de .card: Biblioteca queda grande a la izquierda,
+   Formación y Promoción apiladas más chicas a la derecha. En mobile
+   se apila todo en una sola columna. */
+.pillars-grid {
+  display: grid;
   grid-template-columns: 1fr;
+  gap: var(--space-4);
 }
 
+.pillars-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+@media (min-width: 48rem) {
+  .pillars-grid {
+    grid-template-columns: 1.15fr 1fr;
+    /* stretch (el valor por defecto de grid) iguala la altura de las
+       dos columnas a la más alta de las dos, en vez de calcular a
+       mano una proporción de foto que combine bien con el texto de
+       al lado. */
+    align-items: stretch;
+  }
+
+  .pillar--featured {
+    height: 100%;
+  }
+}
+
+.pillar {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 5px 5px 0 var(--color-shadow-card);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.pillar:hover,
+.pillar:focus-within {
+  transform: translateY(-3px);
+  box-shadow: 8px 8px 0 var(--color-shadow-card);
+}
+
+.pillar-media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.pillar-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pillar--featured .pillar-media {
+  aspect-ratio: 7 / 3;
+}
+
+.pillar-body {
+  padding: var(--space-4);
+}
+
+.pillar--featured .pillar-body {
+  padding: var(--space-5);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pillar h3,
+.pillar p {
+  color: inherit;
+}
+
+.pillar h3 {
+  margin-bottom: var(--space-2);
+}
+
+.pillar p:last-child {
+  margin-bottom: 0;
+}
+
+.pillar--blue {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.pillar--blue p {
+  color: #dce6f6;
+}
+
+.pillar--red {
+  background: var(--color-accent-dark);
+  color: #fff;
+}
+
+.pillar--red p {
+  color: var(--color-accent-tint);
+}
+
+.pillar--gold {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+/* Formación y Promoción: en mobile se apilan como Biblioteca; a
+   partir de 30rem pasan a foto a la izquierda + texto a la derecha,
+   para no alargar la columna lateral. */
 @media (min-width: 30rem) {
-  .card-grid--pillars {
-    grid-template-columns: 1fr 1fr;
+  .pillar--split {
+    flex-direction: row;
+    /* Fija la altura de las dos en vez de dejarla "a lo que dé el
+       contenido": una imagen real y el recuadro de placeholder no
+       calculan esa altura natural igual, y quedaban de porte
+       distinto una de la otra. */
+    min-height: 13rem;
   }
 
-  .card-grid--pillars .card--featured {
-    grid-column: 1 / -1;
-    padding: var(--space-5);
+  .pillar--split .pillar-media {
+    width: 38%;
+    flex: 0 0 38%;
+    aspect-ratio: auto;
+  }
+
+  .pillar--split .pillar-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }
 
-@media (min-width: 64rem) {
-  .card-grid--pillars {
-    grid-template-columns: 1fr 1.1fr 1fr;
-    align-items: end;
-  }
+/* Formación todavía no tiene foto propia: recuadro provisorio en el
+   mismo lugar donde va a ir, mismo ancho que la de Promoción de al
+   lado, para que las dos tarjetas midan igual mientras tanto. */
+.pillar-media--placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  text-align: center;
+  padding: var(--space-2);
+  background: rgba(0, 0, 0, 0.15);
+}
 
-  .card-grid--pillars .card--featured {
-    grid-column: 2;
-    grid-row: 1;
-  }
+.pillar-media--placeholder span {
+  font-size: 0.7rem;
+  font-style: italic;
+  line-height: 1.3;
+  color: var(--color-accent-tint);
+}
 
-  .card-grid--pillars .card:nth-child(2) {
-    grid-column: 1;
-    grid-row: 1;
-  }
+.pillar :focus-visible {
+  outline-color: #fff;
+}
 
-  .card-grid--pillars .card:nth-child(3) {
-    grid-column: 3;
-    grid-row: 1;
-  }
+.pillar--gold :focus-visible {
+  outline-color: var(--color-ink);
 }
 
 .card {
@@ -1828,21 +1952,24 @@ main > section:last-of-type {
 .news-grid > [data-animate]:nth-child(1),
 .info-list > [data-animate]:nth-child(1),
 .faq-zigzag > [data-animate]:nth-child(1),
-.service-accordion > [data-animate]:nth-child(1) {
+.service-accordion > [data-animate]:nth-child(1),
+.pillars-grid > [data-animate]:nth-child(1) {
   transition-delay: 0ms;
 }
 .card-grid > [data-animate]:nth-child(2),
 .news-grid > [data-animate]:nth-child(2),
 .info-list > [data-animate]:nth-child(2),
 .faq-zigzag > [data-animate]:nth-child(2),
-.service-accordion > [data-animate]:nth-child(2) {
+.service-accordion > [data-animate]:nth-child(2),
+.pillars-side > [data-animate]:nth-child(1) {
   transition-delay: 90ms;
 }
 .card-grid > [data-animate]:nth-child(3),
 .news-grid > [data-animate]:nth-child(3),
 .info-list > [data-animate]:nth-child(3),
 .faq-zigzag > [data-animate]:nth-child(3),
-.service-accordion > [data-animate]:nth-child(3) {
+.service-accordion > [data-animate]:nth-child(3),
+.pillars-side > [data-animate]:nth-child(2) {
   transition-delay: 180ms;
 }
 .card-grid > [data-animate]:nth-child(4),
