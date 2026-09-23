@@ -746,14 +746,6 @@ main > section:last-of-type {
 .hero {
   position: relative;
   background-color: var(--color-primary);
-  /* hero-bg.jpg = textura + azul ya combinados en un solo archivo,
-     igual que hace tekmaneducation.com (imagen directa, sin blend
-     mode ni máscara CSS). Generado a partir de la textura provista
-     elegida; 23 KB en vez del ~1 MB de los intentos previos. */
-  background-image: url("../img/hero-bg.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   min-height: 68vh;
@@ -762,8 +754,31 @@ main > section:last-of-type {
   margin-bottom: -1px; /* evita una línea de 1px del bg de la página entre el hero y la onda */
 }
 
+/* Textura del azul: las 4 formas de tinta de bg-pattern-marks.png
+   (blancas, sobre transparente) tileadas y aclaradas con opacidad
+   baja, en vez de la foto con grano horneada que había antes
+   (hero-bg.jpg, ya sin uso) — mucho más sutil y, al ser un patrón que
+   se repite, escala sola a cualquier alto de sección sin estirarse. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../img/bg-pattern-marks.png");
+  background-repeat: repeat;
+  background-size: 1070px 1070px;
+  opacity: 0.05;
+  z-index: 0;
+}
+
 .hero > .container {
+  position: relative;
+  z-index: 1;
   width: 100%;
+}
+
+.hero-carousel,
+.hero-wave {
+  z-index: 1;
 }
 
 /* Solo se aplica si el JS pudo medir la altura real del header
@@ -1792,18 +1807,29 @@ main > section:last-of-type {
    Recuadro centrado inspirado en el bloque final de tekmaneducation.com
    (caja de color con un ícono "volando" en una esquina) — mismo tipo
    de idea, pero con textura, contenido e imagen propios: el rojo de
-   marca con la misma técnica de textura+color que el hero
-   (cta-red-bg.jpg) y el pájaro de CEDILIJ en vez de un cohete. */
+   marca y el pájaro de CEDILIJ en vez de un cohete. */
 .whatsapp-cta {
   position: relative;
-  background-color: var(--color-accent);
-  background-image: url("../img/cta-red-bg.jpg");
-  background-size: cover;
-  background-position: center;
+  background-color: var(--color-accent-dark);
   border-radius: var(--radius-lg);
   padding: var(--space-7) var(--space-5);
   text-align: center;
   color: #fff;
+}
+
+/* Misma textura clara del hero/footer (ver ahí). border-radius:
+   inherit en vez de overflow:hidden en .whatsapp-cta, porque el
+   pájaro decorativo flota a propósito medio afuera de la caja. */
+.whatsapp-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("../img/bg-pattern-marks.png");
+  background-repeat: repeat;
+  background-size: 1070px 1070px;
+  opacity: 0.05;
+  z-index: 0;
 }
 
 .whatsapp-cta h2 {
@@ -2336,10 +2362,6 @@ main > section:last-of-type {
 .site-footer {
   position: relative;
   background-color: var(--color-primary);
-  background-image: url("../img/hero-bg.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   color: #d7e2f2;
   margin-top: calc(-1 * var(--wave-h));
   padding-top: calc(var(--space-6) + 2.5rem + var(--wave-h));
@@ -2354,7 +2376,21 @@ main > section:last-of-type {
   mask-repeat: no-repeat, no-repeat;
 }
 
+/* Misma textura clara del hero, ver comentario ahí. */
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../img/bg-pattern-marks.png");
+  background-repeat: repeat;
+  background-size: 1070px 1070px;
+  opacity: 0.05;
+  z-index: 0;
+}
+
 .site-footer .container {
+  position: relative;
+  z-index: 1;
   max-width: none;
 }
 
