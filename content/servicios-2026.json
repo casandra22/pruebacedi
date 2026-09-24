@@ -2,7 +2,7 @@
   "titulo": "Menú de servicios CEDILIJ",
   "bajada": "Para que leer sea cosa de todos los días",
   "introduccion": "Experiencias, lecturas y arte a la carta. En nuestro Menú de Servicios encuentran propuestas de formación de lectores y capacitaciones para mediadores culturales. Hay de todo: actividades especiales para las infancias y juventudes, y otras para docentes, bibliotecaries, estudiantes de terciarios y universitarios. Algunas suceden en la Biblioteca de CEDILIJ y otras viajan a sus espacios.",
-  "_modelo_propuesta": "Cada propuesta tiene siempre las mismas 8 claves: titulo, destinataries, nivel, duracion, donde, resumen, descripcion, foto. resumen es una síntesis de una sola línea (se muestra siempre visible en la ficha cerrada, junto al título y destinataries); descripcion es el texto completo (solo visible en 'Más información'). nivel es un array con 0 o más de: Nivel inicial, Primaria, Secundaria, Docentes y mediadores — vacío si no aplica un nivel específico (institucional, o sin dato). donde es un string (en CEDILIJ / en la escuela / itinerante / a definir según el caso) — TODAVÍA SIN COMPLETAR, lo pasa la usuaria. foto es el nombre de archivo en assets/img/ — vacío mientras se usan placeholders. Si un dato no está disponible, la clave queda como cadena vacía o array vacío en vez de eliminarse — así el formulario/plantilla de una propuesta nueva siempre se ve igual.",
+  "_modelo_propuesta": "Cada propuesta tiene siempre las mismas 8 claves: titulo, destinataries, nivel, duracion, donde, resumen, descripcion, foto. resumen es una síntesis de una sola línea (se muestra siempre visible en la ficha cerrada, junto al título y destinataries); descripcion es el texto completo (solo visible en 'Más información'). nivel es un array con 0 o más de: Nivel inicial, Primaria, Secundaria, Docentes y mediadores — vacío si no aplica un nivel específico (institucional, o sin dato). donde es un string con uno de estos 3 valores fijos, para que funcione como filtro: 'En CEDILIJ', 'En tu institución', 'Itinerante' — vacío si todavía no se definió (TODAVÍA SIN COMPLETAR para la mayoría, lo pasa la usuaria). foto es el nombre de archivo en assets/img/ — vacío mientras se usan placeholders. Si un dato no está disponible, la clave queda como cadena vacía o array vacío en vez de eliminarse — así el formulario/plantilla de una propuesta nueva siempre se ve igual.",
   "categorias": [
     {
       "nombre": "Especiales",
@@ -152,7 +152,7 @@
           "destinataries": "",
           "nivel": [],
           "duracion": "muestra de 15 días en la institución y taller de 80 minutos",
-          "donde": "itinerante",
+          "donde": "Itinerante",
           "resumen": "Muestra gráfica itinerante de 26 ilustradores argentinos destacados, con taller y recorrido guiado.",
           "descripcion": "Coordina: Soledad Rebelles. La muestra consiste en la presentación gráfica de 26 destacados ilustradores argentinos. Además, se ofrece un recorrido por los diversos autores. Incluye 14 paneles de 1,9 m de ancho x 2 m de alto que, por su tratamiento gráfico, se ven como 28 columnas, correspondientes a 26 ilustradores y a las 2 instituciones generadoras del proyecto (ALIJA y CEDILIJ).",
           "foto": ""
@@ -162,7 +162,7 @@
           "destinataries": "",
           "nivel": [],
           "duracion": "muestra de 15 días en la institución y taller de 2 horas y media",
-          "donde": "itinerante",
+          "donde": "Itinerante",
           "resumen": "Muestra fotográfica sobre experiencias lectoras, acompañada de un taller de sensibilización.",
           "descripcion": "Coordina: Ignacio Scerbo y Soledad Rebelles. Muestra fotográfica sobre instancias lectoras e ilustraciones. Se acompaña de un taller de sensibilización que propone un recorrido por la experiencia lectora de los participantes y reflexiones en torno a las prácticas de lecturas. Incluye 9 paneles de 1 m de ancho x 2 m de alto con fotografías realizadas por CEDILIJ e ilustraciones aportadas por el artista argentino Istvansch.",
           "foto": ""

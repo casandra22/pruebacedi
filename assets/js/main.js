@@ -272,14 +272,15 @@
     serviceFilterToggle.open = false;
   }
 
-  // Filtro de Servicios: categoría + nivel/público (AND entre los dos
-  // grupos, OR adentro de cada uno — marcar dos niveles muestra las
-  // fichas que tengan cualquiera de los dos). Sin JS quedan todas las
-  // fichas visibles, igual que el filtro de Novedades.
+  // Filtro de Servicios: categoría + nivel/público + dónde (AND entre
+  // los tres grupos, OR adentro de cada uno — marcar dos niveles
+  // muestra las fichas que tengan cualquiera de los dos). Sin JS
+  // quedan todas las fichas visibles, igual que el filtro de Novedades.
   var serviceCards = document.querySelectorAll(".service-card");
   var catCheckboxes = document.querySelectorAll("[data-filter-categoria]");
   var nivelCheckboxes = document.querySelectorAll("[data-filter-nivel]");
-  if (serviceCards.length && (catCheckboxes.length || nivelCheckboxes.length)) {
+  var dondeCheckboxes = document.querySelectorAll("[data-filter-donde]");
+  if (serviceCards.length && (catCheckboxes.length || nivelCheckboxes.length || dondeCheckboxes.length)) {
     var serviceEmpty = document.querySelector(".service-empty");
 
     var applyServiceFilters = function () {
@@ -291,6 +292,10 @@
       nivelCheckboxes.forEach(function (b) {
         if (b.checked) activeNiveles.push(b.dataset.filterNivel);
       });
+      var activeDondes = [];
+      dondeCheckboxes.forEach(function (b) {
+        if (b.checked) activeDondes.push(b.dataset.filterDonde);
+      });
 
       var visible = 0;
       serviceCards.forEach(function (card) {
@@ -301,7 +306,8 @@
           activeNiveles.some(function (n) {
             return cardNiveles.indexOf(n) !== -1;
           });
-        var show = matchesCat && matchesNivel;
+        var matchesDonde = activeDondes.length === 0 || activeDondes.indexOf(card.dataset.donde) !== -1;
+        var show = matchesCat && matchesNivel && matchesDonde;
         card.hidden = !show;
         if (show) visible++;
       });
@@ -315,6 +321,9 @@
     nivelCheckboxes.forEach(function (b) {
       b.addEventListener("change", applyServiceFilters);
     });
+    dondeCheckboxes.forEach(function (b) {
+      b.addEventListener("change", applyServiceFilters);
+    });
 
     document.querySelectorAll(".service-filter-clear").forEach(function (btn) {
       btn.addEventListener("click", function () {
@@ -322,6 +331,9 @@
           b.checked = false;
         });
         nivelCheckboxes.forEach(function (b) {
+          b.checked = false;
+        });
+        dondeCheckboxes.forEach(function (b) {
           b.checked = false;
         });
         applyServiceFilters();
