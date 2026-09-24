@@ -1836,6 +1836,10 @@ main > section:last-of-type {
 }
 
 .service-filter-toggle summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
   font-family: var(--font-heading);
   font-weight: 700;
   cursor: pointer;
@@ -1844,6 +1848,16 @@ main > section:last-of-type {
 
 .service-filter-toggle summary::-webkit-details-marker {
   display: none;
+}
+
+.service-filter-chevron {
+  flex-shrink: 0;
+  color: var(--color-ink-soft);
+  transition: transform var(--transition);
+}
+
+.service-filter-toggle[open] .service-filter-chevron {
+  transform: rotate(180deg);
 }
 
 .service-filter-groups {
