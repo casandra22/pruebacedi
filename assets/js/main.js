@@ -306,7 +306,12 @@
           activeNiveles.some(function (n) {
             return cardNiveles.indexOf(n) !== -1;
           });
-        var matchesDonde = activeDondes.length === 0 || activeDondes.indexOf(card.dataset.donde) !== -1;
+        var cardDondes = card.dataset.donde ? card.dataset.donde.split("|") : [];
+        var matchesDonde =
+          activeDondes.length === 0 ||
+          activeDondes.some(function (d) {
+            return cardDondes.indexOf(d) !== -1;
+          });
         var show = matchesCat && matchesNivel && matchesDonde;
         card.hidden = !show;
         if (show) visible++;
