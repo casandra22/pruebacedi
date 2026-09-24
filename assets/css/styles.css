@@ -1749,7 +1749,13 @@ main > section:last-of-type {
 
 /* ---------- Lightbox (foto completa) ---------- */
 .lightbox {
-  position: relative;
+  /* Sin position propio: el navegador ya centra el <dialog> abierto
+     con showModal() vía position:fixed nativo. Pisarlo con relative
+     hacía que, al abrirse, el navegador tuviera que desplazar toda
+     la página para llevar el diálogo a la vista — se sentía como si
+     la página saltara al inicio. .lightbox-close (position:absolute)
+     igual queda contenido bien: fixed/absolute/relative sirven todas
+     como contenedor para un hijo absolute. */
   border: none;
   border-radius: var(--radius-md);
   padding: var(--space-2);
@@ -1792,6 +1798,329 @@ main > section:last-of-type {
 .lightbox-close svg {
   width: 1.1rem;
   height: 1.1rem;
+}
+
+/* ---------- Servicios: filtro + grilla + ficha ----------
+   Sidebar de checkboxes (categoría + nivel/público) a la izquierda,
+   grilla de fichas a la derecha; en mobile la sidebar pasa a un
+   <details> arriba de la grilla. Abierto por defecto en el HTML
+   (así funciona sin JS); con JS (main.js) arranca colapsado en
+   mobile para que sea un desplegable real — siempre tocamos el
+   atributo "open" en vez de ocultarlo por CSS, para que el estado
+   visual y el que anuncia un lector de pantalla coincidan. El
+   filtro en sí es JS progresivo: sin JS quedan todas las fichas
+   visibles, igual que .novedades-filter. */
+.service-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (min-width: 60rem) {
+  .service-layout {
+    grid-template-columns: 16rem minmax(0, 1fr);
+  }
+
+  .service-filter-sidebar {
+    position: sticky;
+    top: calc(var(--header-h, 5rem) + var(--space-4));
+  }
+}
+
+.service-filter-toggle {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+}
+
+.service-filter-toggle summary {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.service-filter-toggle summary::-webkit-details-marker {
+  display: none;
+}
+
+.service-filter-groups {
+  margin-top: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.service-filter-group h3 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-ink-soft);
+  margin-bottom: var(--space-2);
+}
+
+.service-filter-group ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.service-filter-group li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.service-filter-group input[type="checkbox"] {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.service-filter-group label {
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+
+.service-filter-clear {
+  margin-top: var(--space-3);
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-accent-dark);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.service-empty {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  text-align: center;
+  color: var(--color-ink-soft);
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: var(--space-4);
+}
+
+.service-card {
+  background: var(--color-bg);
+  border-radius: 0.4rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 5px 0 var(--color-shadow-card);
+  rotate: -0.5deg;
+  transition: transform var(--transition), box-shadow var(--transition), rotate var(--transition);
+}
+
+/* El atributo hidden (usado por el filtro) necesita pisar el
+   display:flex de arriba para funcionar — mismo motivo que
+   .post-list .news-card[hidden] más abajo. */
+.service-card[hidden] {
+  display: none;
+}
+
+.service-grid > .service-card:nth-child(3n + 2) {
+  rotate: 0.5deg;
+}
+
+.service-grid > .service-card:nth-child(3n + 3) {
+  rotate: -0.3deg;
+}
+
+.service-card:hover,
+.service-card:focus-within {
+  rotate: 0deg;
+  transform: translateY(-3px);
+  box-shadow: 8px 8px 0 var(--color-shadow-card);
+}
+
+.service-card-media {
+  aspect-ratio: 4 / 3;
+  color: var(--color-ink-soft);
+}
+
+.service-card-body {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.service-card-body h3 {
+  margin-bottom: 0;
+}
+
+.service-card-meta {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.service-card-meta li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-ink-soft);
+}
+
+.service-card-meta svg {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  color: var(--color-primary);
+}
+
+.service-card-resumen {
+  font-size: 0.92rem;
+  margin: 0;
+  flex: 1;
+}
+
+.service-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.service-card-actions .btn {
+  padding: 0.6rem 1.1rem;
+  font-size: 0.9rem;
+}
+
+/* Diálogo de "Más información": misma base que .lightbox (sin
+   position propio — ver comentario ahí, el navegador ya lo centra
+   con showModal()). El scroll va en .service-dialog-scroll, no en el
+   <dialog>, para que el botón de cerrar (position:absolute, asomado
+   por fuera del borde) no quede recortado si el contenido es largo. */
+.service-dialog {
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0;
+  max-width: min(92vw, 42rem);
+  background: var(--color-surface);
+}
+
+.service-dialog::backdrop {
+  background: rgba(26, 22, 18, 0.75);
+}
+
+.service-dialog-scroll {
+  max-height: 92vh;
+  overflow-y: auto;
+  border-radius: inherit;
+}
+
+.service-dialog-media {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.service-dialog-media .pillar-media--placeholder {
+  aspect-ratio: 4 / 3;
+  color: var(--color-ink-soft);
+}
+
+.service-dialog-body {
+  padding: var(--space-5);
+}
+
+.service-dialog-body h2 {
+  margin-top: var(--space-2);
+}
+
+.service-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+/* El tono rosado de .pillar-media--placeholder span está pensado para
+   fondos saturados (pilares azul/rojo/dorado); acá el placeholder
+   está sobre un fondo neutro, hace falta un tono legible. */
+.service-card-media span,
+.service-dialog-media span {
+  color: var(--color-ink-soft);
+}
+
+/* ---------- "¿Cómo pedir una propuesta?" ---------- */
+.steps-box h2 {
+  text-align: center;
+  margin-bottom: var(--space-5);
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+@media (min-width: 48rem) {
+  .steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+}
+
+.step-mark {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-primary);
+}
+
+.step:nth-child(2) .step-mark {
+  background: var(--color-accent-dark);
+}
+
+.step:nth-child(3) .step-mark {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+.step h3 {
+  margin-bottom: 0;
+}
+
+.step p {
+  margin: 0;
+  color: var(--color-ink-soft);
+  font-size: 0.92rem;
 }
 
 .news-empty,
@@ -1979,7 +2308,8 @@ main > section:last-of-type {
 .info-list > [data-animate]:nth-child(1),
 .faq-zigzag > [data-animate]:nth-child(1),
 .service-accordion > [data-animate]:nth-child(1),
-.pillars-grid > [data-animate]:nth-child(1) {
+.pillars-grid > [data-animate]:nth-child(1),
+.service-grid > [data-animate]:nth-child(1) {
   transition-delay: 0ms;
 }
 .card-grid > [data-animate]:nth-child(2),
@@ -1987,7 +2317,8 @@ main > section:last-of-type {
 .info-list > [data-animate]:nth-child(2),
 .faq-zigzag > [data-animate]:nth-child(2),
 .service-accordion > [data-animate]:nth-child(2),
-.pillars-side > [data-animate]:nth-child(1) {
+.pillars-side > [data-animate]:nth-child(1),
+.service-grid > [data-animate]:nth-child(2) {
   transition-delay: 90ms;
 }
 .card-grid > [data-animate]:nth-child(3),
@@ -1995,27 +2326,31 @@ main > section:last-of-type {
 .info-list > [data-animate]:nth-child(3),
 .faq-zigzag > [data-animate]:nth-child(3),
 .service-accordion > [data-animate]:nth-child(3),
-.pillars-side > [data-animate]:nth-child(2) {
+.pillars-side > [data-animate]:nth-child(2),
+.service-grid > [data-animate]:nth-child(3) {
   transition-delay: 180ms;
 }
 .card-grid > [data-animate]:nth-child(4),
 .news-grid > [data-animate]:nth-child(4),
 .info-list > [data-animate]:nth-child(4),
 .faq-zigzag > [data-animate]:nth-child(4),
-.service-accordion > [data-animate]:nth-child(4) {
+.service-accordion > [data-animate]:nth-child(4),
+.service-grid > [data-animate]:nth-child(4) {
   transition-delay: 270ms;
 }
 .card-grid > [data-animate]:nth-child(5),
 .news-grid > [data-animate]:nth-child(5),
 .info-list > [data-animate]:nth-child(5),
 .faq-zigzag > [data-animate]:nth-child(5),
-.service-accordion > [data-animate]:nth-child(5) {
+.service-accordion > [data-animate]:nth-child(5),
+.service-grid > [data-animate]:nth-child(5) {
   transition-delay: 360ms;
 }
 .card-grid > [data-animate]:nth-child(6),
 .info-list > [data-animate]:nth-child(6),
 .faq-zigzag > [data-animate]:nth-child(6),
-.service-accordion > [data-animate]:nth-child(6) {
+.service-accordion > [data-animate]:nth-child(6),
+.service-grid > [data-animate]:nth-child(6) {
   transition-delay: 450ms;
 }
 
@@ -2586,9 +2921,30 @@ body.js-animate [data-animate].is-visible {
 
 /* ---------- Breadcrumb / page hero simple ---------- */
 .page-hero {
+  position: relative;
+  overflow: hidden;
   padding-block: var(--space-6) var(--space-5);
   background: var(--color-bg-alt);
   border-bottom: 1px solid var(--color-border);
+}
+
+/* Misma textura del hero/footer/cartel de WhatsApp (ver ahí), pero en
+   el tono tostado de bg-pattern-cream-alt.svg en vez de blanco —
+   sobre un fondo claro, el blanco no se nota. */
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../img/bg-pattern-marks-cream.png");
+  background-repeat: repeat;
+  background-size: 1070px 1070px;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.page-hero .container {
+  position: relative;
+  z-index: 1;
 }
 
 .page-hero .eyebrow {

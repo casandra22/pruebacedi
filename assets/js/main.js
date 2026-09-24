@@ -233,4 +233,99 @@
       });
     });
   }
+
+  // Servicios: "Más información" abre el <dialog> de esa propuesta —
+  // mismo patrón que el lightbox de fotos, con su propio botón de
+  // cerrar y clic en el backdrop. Sin JS el botón no hace nada, pero
+  // la ficha ya muestra para quién/duración/dónde/resumen sin
+  // depender de esto.
+  var openDialogButtons = document.querySelectorAll("[data-open-dialog]");
+  if (openDialogButtons.length) {
+    openDialogButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var dialog = document.getElementById(btn.dataset.openDialog);
+        if (dialog && typeof dialog.showModal === "function") {
+          dialog.showModal();
+        }
+      });
+    });
+
+    document.querySelectorAll(".service-dialog").forEach(function (dialog) {
+      var closeBtn = dialog.querySelector(".lightbox-close");
+      if (closeBtn) {
+        closeBtn.addEventListener("click", function () {
+          dialog.close();
+        });
+      }
+      dialog.addEventListener("click", function (event) {
+        if (event.target === dialog) dialog.close();
+      });
+    });
+  }
+
+  // El <details> de filtros de Servicios arranca abierto en el HTML
+  // (así funciona sin JS en cualquier tamaño). Con JS, si arrancamos
+  // en mobile lo colapsamos para que sea un desplegable y no ocupe
+  // toda la pantalla antes de las fichas; en desktop queda abierto.
+  var serviceFilterToggle = document.querySelector(".service-filter-toggle");
+  if (serviceFilterToggle && !window.matchMedia("(min-width: 60rem)").matches) {
+    serviceFilterToggle.open = false;
+  }
+
+  // Filtro de Servicios: categoría + nivel/público (AND entre los dos
+  // grupos, OR adentro de cada uno — marcar dos niveles muestra las
+  // fichas que tengan cualquiera de los dos). Sin JS quedan todas las
+  // fichas visibles, igual que el filtro de Novedades.
+  var serviceCards = document.querySelectorAll(".service-card");
+  var catCheckboxes = document.querySelectorAll("[data-filter-categoria]");
+  var nivelCheckboxes = document.querySelectorAll("[data-filter-nivel]");
+  if (serviceCards.length && (catCheckboxes.length || nivelCheckboxes.length)) {
+    var serviceEmpty = document.querySelector(".service-empty");
+
+    var applyServiceFilters = function () {
+      var activeCats = [];
+      catCheckboxes.forEach(function (b) {
+        if (b.checked) activeCats.push(b.dataset.filterCategoria);
+      });
+      var activeNiveles = [];
+      nivelCheckboxes.forEach(function (b) {
+        if (b.checked) activeNiveles.push(b.dataset.filterNivel);
+      });
+
+      var visible = 0;
+      serviceCards.forEach(function (card) {
+        var matchesCat = activeCats.length === 0 || activeCats.indexOf(card.dataset.categoria) !== -1;
+        var cardNiveles = card.dataset.nivel ? card.dataset.nivel.split("|") : [];
+        var matchesNivel =
+          activeNiveles.length === 0 ||
+          activeNiveles.some(function (n) {
+            return cardNiveles.indexOf(n) !== -1;
+          });
+        var show = matchesCat && matchesNivel;
+        card.hidden = !show;
+        if (show) visible++;
+      });
+
+      if (serviceEmpty) serviceEmpty.hidden = visible !== 0;
+    };
+
+    catCheckboxes.forEach(function (b) {
+      b.addEventListener("change", applyServiceFilters);
+    });
+    nivelCheckboxes.forEach(function (b) {
+      b.addEventListener("change", applyServiceFilters);
+    });
+
+    document.querySelectorAll(".service-filter-clear").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        catCheckboxes.forEach(function (b) {
+          b.checked = false;
+        });
+        nivelCheckboxes.forEach(function (b) {
+          b.checked = false;
+        });
+        applyServiceFilters();
+      });
+    });
+  }
 })();
